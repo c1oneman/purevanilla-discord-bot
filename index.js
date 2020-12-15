@@ -17,10 +17,10 @@ var maintenanceEnabled = false;
 var key = process.env.API_KEY;
 var generalChatID = process.env.GENERAL_ID
 // Logic/Helper functions
-var autoNight = schedule.scheduleJob({hour: 0, minute: 0}, function(){
+var autoNight = schedule.scheduleJob({hour: 6, minute: 0}, function(){
   randomImage();
 });
-var autoDay = schedule.scheduleJob({hour: 12, minute: 0}, function(){
+var autoDay = schedule.scheduleJob({hour: 18, minute: 0}, function(){
   randomImage();
 });
 
