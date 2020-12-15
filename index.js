@@ -20,7 +20,7 @@ var generalChatID = process.env.GENERAL_ID
 var autoNight = schedule.scheduleJob({hour: 6, minute: 0}, function(){
   randomImage();
 });
-var autoDay = schedule.scheduleJob({hour: 20, minute: 7}, function(){
+var autoDay = schedule.scheduleJob({hour: 20, minute: 10}, function(){
   randomImage();
 });
 
