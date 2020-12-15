@@ -152,12 +152,6 @@ client.on('message', msg => {
   if (msg.content.toLowerCase() === '/ip') {
     msg.channel.send("**play.purevanilla.net**");
   }
-  if (msg.content.toLowerCase().indexOf('/relist') >= 0) {
-    msg.channel.send("Relist is no longer a function, please contact staff in #help-support.");
-  }
-  if (msg.content.toLowerCase().indexOf('/uuid') >= 0) {
-    getUUID('NotClay');
-  }
   // status command
   if (msg.content.toLowerCase() === '/status') {
     if (maintenanceEnabled) {
@@ -292,7 +286,7 @@ client.on('message', msg => {
               finalMSG = finalMSG + "\n" + extra + " " + val.entry + "  `" + val.value + '`';
             }
           }
-          finalMSG = finalMSG + "\n ??: NotClay `-1`"
+
         }
         msg.channel.send(finalMSG);
       });
