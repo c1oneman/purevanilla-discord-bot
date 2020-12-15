@@ -1,6 +1,7 @@
 
 require('dotenv').config();
 mcping = require('mc-ping');
+schedule = require('node-schedule');
 const Discord = require('discord.js');
 
 const client = new Discord.Client();
@@ -14,7 +15,14 @@ var Creative_ServerIP = process.env.CREATIVE_SERVER_IP || 'creative.purevanilla.
 var Current_Competition = "dec2";
 var maintenanceEnabled = false;
 var key = process.env.API_KEY;
+var generalChatID = process.env.GENERAL_ID
 // Logic/Helper functions
+var autoNight = schedule.scheduleJob({hour: 0, minute: 0}, function(){
+  randomImage();
+});
+var autoDay = schedule.scheduleJob({hour: 12, minute: 0}, function(){
+  randomImage();
+});
 
 function isNumeric(value) {
   return /^-?\d+$/.test(value);
@@ -101,6 +109,25 @@ function getUUID(ign) {
 
   )
 }
+function randomImage() {
+  var unirest = require("unirest");
+
+    var req = unirest("GET", `https://api.imgur.com/3/album/MwsesR2`);
+
+    req.headers({
+      "accept": "application/json",
+      "authorization": "Client-ID 4cde16da264b293"
+    });
+    req.end(function (res) {
+      if (!res.body.error) {
+        if(res.body.data.images) {
+          var imagesObject = res.body.data.images;
+          var randomObject = imagesObject[Math.floor(Math.random() * imagesObject.length)];
+          client.channels.cache.get(generalChatID).send(randomObject.link);
+        };
+      }
+    });
+}
 function ping() {
   if (maintenanceEnabled) {
     client.user.setActivity("Maintenance");
@@ -186,6 +213,9 @@ client.on('message', msg => {
     };
     msg.channel.send({ embed });
   }
+  if (msg.content.toLowerCase() === '/random') {
+    randomImage();
+  }
   if (msg.member.roles !== undefined && isStaff(msg.member)) {
     if ((msgCon.indexOf('/emoji') === 0)) {
 
@@ -198,7 +228,7 @@ client.on('message', msg => {
         var req = unirest("GET", `https://playerdb.co/api/player/minecraft/${msgCon[1]}`);
 
         req.headers({
-          "accept": "application/json"
+          "accept": "application/json",
         });
 
 
@@ -232,6 +262,16 @@ client.on('message', msg => {
         } else {
           console.log(res);
           msg.channel.send(":green_circle: Pure Vanilla Creative is `online` with " + res['num_players'] + " players.");
+          let date_ob = new Date();
+          let hours = date_ob.getHours();
+  
+  // current minutes
+          let minutes = date_ob.getMinutes();
+  
+  // current seconds
+        
+        
+          msg.channel.send(hours + ":" + minutes )
         }
       }, 3000);
     }
