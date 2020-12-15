@@ -20,7 +20,7 @@ var generalChatID = process.env.GENERAL_ID
 var autoNight = schedule.scheduleJob({hour: 6, minute: 0}, function(){
   randomImage();
 });
-var autoDay = schedule.scheduleJob({hour: 20, minute: 10}, function(){
+var autoDay = schedule.scheduleJob({hour: 20, minute: 12}, function(){
   randomImage();
 });
 
@@ -123,6 +123,7 @@ function randomImage() {
         if(res.body.data.images) {
           var imagesObject = res.body.data.images;
           var randomObject = imagesObject[Math.floor(Math.random() * imagesObject.length)];
+          console.log(randomObject.link);
           client.channels.cache.get(generalChatID).send(randomObject.link);
         };
       }
