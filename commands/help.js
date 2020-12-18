@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
     .addField("Get IP Address [Alias: /connect]", "`/ip`")
     .addField("Get dynmap URL [Alias: /dynmap]", "`/map`")
     .addField("Get server status [Alias: /online]", "`/status`")
-    .addField("Get weekly comp. scores [Alias: /comp]", "`/weekly`")
+    .addField("Get weekly comp. scores [Alias: /comp] [COMP_ID is Optional]", "`/weekly (COMP_ID)`")
     .addField("Get discord invite link [Alias: /invite]", "`/discord`")
     if(isRole(message.member, "Staff")) {
         embed.addField("STAFF | Whitelist [Alias: /relist]", "`/whitelist [@Discord] [IGN]`")

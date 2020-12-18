@@ -5,6 +5,9 @@ var Current_Competition = "dec2";
 
 module.exports.run = async (bot, message, args) => {
     var unirest = require("unirest");
+    if(args.length == 1) {
+        Current_Competition = args[0];
+    }
     var req = unirest("GET", `${ServerTap_API}/v1/scoreboard/` + Current_Competition);
 
     req.headers({
