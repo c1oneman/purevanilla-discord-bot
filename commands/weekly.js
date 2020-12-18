@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) => {
             scoreboard = scoreboard.sort(compare);
             console.log(scoreboard);
 
-            var finalMSG = "**Weekly Competition Scores:**  \n*" + res.body.displayName + "*";
+            var finalMSG = "**Weekly Competition Scores:**  \n*" + res.body.displayName + ` | ID: ${Current_Competition}*`;
             var i = 0;
             for (let val of scoreboard) {
                 i++;
