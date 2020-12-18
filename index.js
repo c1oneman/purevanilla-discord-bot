@@ -58,7 +58,6 @@ bot.on("ready", async () => {
     ping();
   }, interval);
   console.log(`${bot.user.username} is online on ${bot.guilds.size} servers!`);
-  bot.user.setActivity(`In Development`);
   bot.user.setStatus('online');
 
 
@@ -68,10 +67,10 @@ bot.on("ready", async () => {
 // Logic/Helper functions
 
 // Restart schdule to run at server reboot times.
-var restartNight = schedule.scheduleJob({hour: 6, minute: 0}, function(){
+var restartNight = schedule.scheduleJob({hour: 8, minute: 0}, function(){
   randomImage();
 });
-var restartDay = schedule.scheduleJob({hour: 16, minute: 0}, function(){
+var restartDay = schedule.scheduleJob({hour: 20, minute: 0}, function(){
   randomImage();
 });
 
@@ -107,7 +106,7 @@ function ping() {
 
     } else {
       // Success!
-      console.log(res);
+      //console.log(res);
 
       bot.user.setActivity("with " + res['num_players'] + " players");
 

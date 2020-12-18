@@ -7,14 +7,14 @@ var Creative_ServerTap_API = process.env.PUREVANILLA_CREATIVE_SERVER_ENDPOINT ||
 module.exports.run =  (bot, interaction) => {
     const guild = bot.guilds.cache.get(interaction.guild_id);
     var staffRole = guild.roles.cache.find(role => role.name === "Staff");
-    if(!isRole(interaction, staffRole))return;
+    if(!isRoleInteraction(interaction, staffRole))return;
 
     var memberRole = guild.roles.cache.find(role => role.name === "Member");
     var options = interaction.data.options
 
     var member = guild.members.fetch(options[0].value)
     member.then(member => {
-        if(!isRole(interaction, memberRole)) {
+        if(!member.roles.cache.find(r => r.name === "Member")) {
             member.roles.add(memberRole);
             member.setNickname(options[1].value)
             //console.log(member.user.username);
@@ -66,7 +66,11 @@ module.exports.run =  (bot, interaction) => {
         })
     });
 }
-function isRole(interaction, role) {
+function isRoleInteraction(interaction, role) {
+    return interaction.member.roles.includes(role.id)
+}
+function isRole(member, role) {
+    console.log(member)
     return interaction.member.roles.includes(role.id)
 }
 

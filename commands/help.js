@@ -1,25 +1,36 @@
 const Discord = require('discord.js')
 
-module.exports.run = async (bot, message, args) => {
-    if(!message.content.startsWith('/'))return;  
+module.exports.run = async (bot, interaction) => {
+    const guild = bot.guilds.cache.get(interaction.guild_id);
+    var staffRole = guild.roles.cache.find(role => role.name === "Staff");
 
 
     let embed = new Discord.MessageEmbed()
-    .setTitle("PureVanilla Bot Help")
-    .addField("Get IP Address [Alias: /connect]", "`/ip`")
-    .addField("Get dynmap URL [Alias: /dynmap]", "`/map`")
-    .addField("Get server status [Alias: /online]", "`/status`")
-    .addField("Get weekly comp. scores [Alias: /comp] [COMP_ID is Optional]", "`/weekly (COMP_ID)`")
-    .addField("Get discord invite link [Alias: /invite]", "`/discord`")
-    if(isRole(message.member, "Staff")) {
-        embed.addField("STAFF | Whitelist [Alias: /relist]", "`/whitelist [@Discord] [IGN]`")
-        embed.addField("STAFF | Get reported TPS [Alias: /lag]", "`/tps`")
+    //.setTitle("PureVanilla Bot Help")
+    .addField("Get IP Address", "`/ip`")
+    .addField("Get dynmap URL", "`/map`")
+    .addField("Get server status", "`/status`")
+    .addField("Get weekly comp. scores [COMP_ID is Optional]", "`/weekly (COMP_ID)`")
+    .addField("Get discord invite link", "`/discord`")
+    if(isRoleInteraction(interaction, staffRole)) {
+        embed.addField("STAFF | Whitelist", "`/whitelist [@Discord] [IGN]`")
+        embed.addField("STAFF | Get reported TPS", "`/tps`")
     }
     embed.setColor("#e64b0e")
-    message.channel.send(embed)
+    bot.api.interactions(interaction.id, interaction.token).callback.post({data: {
+        type: 4,
+        data: {
+          content: "PureVanilla Bot Help",
+          embeds: [
+            embed
+          ]
+  
+          }
+        }
+    })
 }
-function isRole(user, role) {
-    return user.roles.cache.find(r => r.name === role) 
+function isRoleInteraction(interaction, role) {
+    return interaction.member.roles.includes(role.id)
 }
 module.exports.help = {
   name:"help",
