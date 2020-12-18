@@ -3,11 +3,13 @@ var ServerTap_API = process.env.PUREVANILLA_SERVER_ENDPOINT || 'localhost:25566'
 var key = process.env.API_KEY;
 var Current_Competition = "dec2";
 
-module.exports.run = async (bot, message, args) => {
+module.exports.run = async (bot, interaction) => {
     var unirest = require("unirest");
-    if(args.length == 1) {
-        Current_Competition = args[0];
+    
+    if(interaction.data.options) {
+        Current_Competition = interaction.data.options[0].value
     }
+    
     var req = unirest("GET", `${ServerTap_API}/v1/scoreboard/` + Current_Competition);
 
     req.headers({
@@ -19,11 +21,17 @@ module.exports.run = async (bot, message, args) => {
     req.end(function (res) {
         if (res.error) {
             console.log(`Error getting /v1/scoreboard/:, ${res.error}`);
-            message.channel.send('Could not reach server.');
+            bot.api.interactions(interaction.id, interaction.token).callback.post({data: {
+                type: 4,
+                data: {
+                  content: `Could not reach server`
+                  }
+                }
+            })
         } else if (res.status == 200) {
             var scoreboard = res.body.scores
             scoreboard = scoreboard.sort(compare);
-            console.log(scoreboard);
+            //console.log(scoreboard);
 
             var finalMSG = "**Weekly Competition Scores:**  \n*" + res.body.displayName + ` | ID: ${Current_Competition}*`;
             var i = 0;
@@ -47,7 +55,13 @@ module.exports.run = async (bot, message, args) => {
             }
 
         }
-        message.channel.send(finalMSG);
+        bot.api.interactions(interaction.id, interaction.token).callback.post({data: {
+            type: 4,
+            data: {
+              content: `${finalMSG}`
+              }
+            }
+        })
     });
 }
 function compare(a, b) {

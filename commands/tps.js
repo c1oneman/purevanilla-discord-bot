@@ -2,10 +2,15 @@ const Discord = require('discord.js');
 var unirest = require("unirest");
 var ServerTap_API = process.env.PUREVANILLA_SERVER_ENDPOINT || 'localhost:25566'
 var key = process.env.API_KEY;
-module.exports.run = async (bot, message, args) => {
-    if(!isRole(message.member, "Staff"))return;  
+module.exports.run = (bot, interaction) => {
+    const guild = bot.guilds.cache.get(interaction.guild_id);
+    var staffRole = guild.roles.cache.find(role => role.name === "Staff");
+    if(!isRole(interaction, staffRole))return;
+    
+    
+    
     var unirest = require("unirest");
-        var req = unirest("GET", `${ServerTap_API}/v1/server`);
+    var req = unirest("GET", `${ServerTap_API}/v1/server`);
 
           req.headers({
             "content-type": "application/x-www-form-urlencoded",
@@ -16,15 +21,28 @@ module.exports.run = async (bot, message, args) => {
             if (res.status == 200) {
          
             // Server pinged back
-            message.channel.send("Reported TPS: **" + res.body.tps + "**");
+            bot.api.interactions(interaction.id, interaction.token).callback.post({data: {
+                type: 4,
+                data: {
+                  content: `Reported TPS: **${res.body.tps}**`
+                  }
+                }
+            })
+           
           }
           else {
-            message.channel.send('Could not reach server.');
+            bot.api.interactions(interaction.id, interaction.token).callback.post({data: {
+                type: 4,
+                data: {
+                  content: 'Could not reach server.'
+                  }
+                }
+            })
           }
         });
 }
-function isRole(user, role) {
-    return user.roles.cache.find(r => r.name === role) 
+function isRole(interaction, role) {
+    return interaction.member.roles.includes(role.id)
 }
 
 module.exports.help = {

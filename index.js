@@ -33,6 +33,25 @@ fs.readdir("./commands/", (err, files) => {
   });
 });
 })
+
+bot.ws.on('INTERACTION_CREATE', async interaction => {
+  console.log(interaction.data);
+  let cmd = interaction.data.name;
+  let commandfile;
+  if (bot.commands.has(cmd)) {
+    commandfile = bot.commands.get(cmd);
+  } else if (bot.aliases.has(cmd)) {
+    commandfile = bot.commands.get(bot.aliases.get(cmd));
+  }
+  try {
+    commandfile.run(bot, interaction);
+  }
+  catch (e) {
+    console.log(e);
+  }}
+
+)
+
 bot.on("ready", async () => {
   setInterval(function () {
     console.log("Pingback");
@@ -42,30 +61,8 @@ bot.on("ready", async () => {
   bot.user.setActivity(`In Development`);
   bot.user.setStatus('online');
 
-  bot.on("message", async message => {
-    if(message.author.bot) return;
-    if(message.channel.type === "dm") return;
-    let prefix = botconfig.prefix
-    let messageArray = message.content.split(" ");
-    let args = message.content.slice(prefix.length).trim().split(/ +/g);
-    let cmd = args.shift().toLowerCase();
-    let commandfile;
 
-    if (bot.commands.has(cmd)) {
-      commandfile = bot.commands.get(cmd);
-    } else if (bot.aliases.has(cmd)) {
-    commandfile = bot.commands.get(bot.aliases.get(cmd));
-    }
-  
-      if (!message.content.startsWith(prefix)) return;
-
-          
-  try {
-    commandfile.run(bot, message, args);
-  
-  } catch (e) {
-  }}
-  )})
+  })
 
 
 // Logic/Helper functions
@@ -102,7 +99,7 @@ function randomImage() {
 }
 function ping() {
   mcping(`play.purevanilla.net`, 25565, function (err, res) {
-    console.log(res)
+    //console.log(res)
     if (err) {
       // Some kind of error
       console.error(err);
