@@ -4,26 +4,10 @@ var key = process.env.API_KEY;
 var ServerTap_API = process.env.PUREVANILLA_SERVER_ENDPOINT || 'localhost:25566'
 var Creative_ServerTap_API = process.env.PUREVANILLA_CREATIVE_SERVER_ENDPOINT || 'localhost:25566'
 
-module.exports.run =  (bot, interaction) => {
-    const guild = bot.guilds.cache.get(interaction.guild_id);
-    var staffRole = guild.roles.cache.find(role => role.name === "Staff");
-    if(!isRoleInteraction(interaction, staffRole))return;
-
-    var memberRole = guild.roles.cache.find(role => role.name === "Member");
-    var options = interaction.data.options
-
-    var member = guild.members.fetch(options[0].value)
-    member.then(member => {
-        if(!member.roles.cache.find(r => r.name === "Member")) {
-            member.roles.add(memberRole);
-            member.setNickname(options[1].value)
-            //console.log(member.user.username);
-        }
-    }) 
-    
-    
-
-
+module.exports.run = async (bot, message, args) => {
+    if (!isRole(message.member, "Staff")) return;
+    if (!(args.length == 2)) return;
+    console.log(args)
     var survivalReq = unirest("POST", `${ServerTap_API}/v1/server/whitelist`);
     var creativeReq = unirest("POST", `${Creative_ServerTap_API}/v1/server/whitelist`);
     var headers = {
@@ -32,46 +16,47 @@ module.exports.run =  (bot, interaction) => {
         "key": key
     };
     var form = {
-        "name": options[1].value
+        "name": args[1].toString()
     }
     survivalReq.headers(headers);
     creativeReq.headers(headers);
 
     survivalReq.form(form);
     creativeReq.form(form);
-    var responseMsg = '';
-   
+    let member = message.mentions.members.first();
+    try {
+        message.mentions.members.first().setNickname(args[1].toString());
+    }
+    catch {
+        console.log('Failed to update nickname')
+    }
     survivalReq.end(function (res) {
         if (res.status == 200) {
-             //interaction.member.roles.set
-             responseMsg = "User Whitelisted\n`IGN: " + options[1].value + "` \n`Discord: `" + options[0].value + " ` `\n`Nickname Updated to IGN`\n\n" + "**play.purevanilla.net**";
-        
+            if (member !== undefined) {
+                let role = message.guild.roles.cache.find(r => r.name === "Member");
+                member.roles.add(role).catch(console.error);
+                var responseMsg = "User Whitelisted\n`IGN: " + args[1].toString() + "` \n`Discord: `" + args[0].toString() + " ` `\n`Nickname Updated to IGN`\n\n" + "**play.purevanilla.net**";
+            } else {
+                // member is undefined
+                var responseMsg = "User not found in discord.";
+            }
         } else {
-             responseMsg = "**Failed to Whitelist**\n`IGN: " + options[1].value + "`\n`Discord: `" + options[0].value + " ` `\n" + "Please check the players IGN";
+            var responseMsg = "**Failed to Whitelist**\n`IGN: " + args[1].toString() + "`\n`Discord: `" + args[1].toString() + " ` `\n" + "Please check the players IGN";
         }
+        message.channel.send(responseMsg);
     });
     creativeReq.end(function (res) {
         if (res.status == 200) {
             console.log('Creative whitelist success')
-            
+            responseMsg = "";
         } else {
-            responseMsg = responseMsg +  "\n**Creative failed to whitelist..** `/status`";
+            responseMsg = "**Creative failed to whitelist..** `/status`";
         }
-        bot.api.interactions(interaction.id, interaction.token).callback.post({data: {
-            type: 4,
-            data: {
-              content: `${responseMsg}`
-              }
-            }
-        })
+        message.channel.send(responseMsg);
     });
 }
-function isRoleInteraction(interaction, role) {
-    return interaction.member.roles.includes(role.id)
-}
-function isRole(member, role) {
-    console.log(member)
-    return interaction.member.roles.includes(role.id)
+function isRole(user, role) {
+    return user.roles.cache.find(r => r.name === role)
 }
 
 module.exports.help = {

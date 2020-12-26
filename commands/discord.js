@@ -1,24 +1,14 @@
 const Discord = require('discord.js')
 
-module.exports.run = async (bot, interaction) => {
-    const embed = {
-        "title": "discord.purevanilla.net",
-        "url": "http://discord.purevanilla.net"
-    };
-    bot.api.interactions(interaction.id, interaction.token).callback.post({data: {
-      type: 4,
-      data: {
-        content: "Access the discord:",
-        embeds: [
-          embed
-        ]
-
-        }
-      }
-  })
+module.exports.run = async (bot, message, args) => {
+  const embed = {
+    "title": "discord.purevanilla.net",
+    "url": "http://discord.purevanilla.net"
+  };
+  message.channel.send({ embed });
 }
 
 module.exports.help = {
-  name:"discord",
+  name: "discord",
   aliases: ["invite"]
 }

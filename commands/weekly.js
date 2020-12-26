@@ -1,15 +1,10 @@
 const Discord = require('discord.js')
 var ServerTap_API = process.env.PUREVANILLA_SERVER_ENDPOINT || 'localhost:25566'
 var key = process.env.API_KEY;
-var Current_Competition = "ts_EnchantItem";
+var Current_Competition = "dec2";
 
-module.exports.run = async (bot, interaction) => {
+module.exports.run = async (bot, message, args) => {
     var unirest = require("unirest");
-
-    if (interaction.data.options) {
-        Current_Competition = interaction.data.options[0].value
-    }
-
     var req = unirest("GET", `${ServerTap_API}/v1/scoreboard/` + Current_Competition);
 
     req.headers({
@@ -21,20 +16,13 @@ module.exports.run = async (bot, interaction) => {
     req.end(function (res) {
         if (res.error) {
             console.log(`Error getting /v1/scoreboard/:, ${res.error}`);
-            bot.api.interactions(interaction.id, interaction.token).callback.post({
-                data: {
-                    type: 4,
-                    data: {
-                        content: `Could not reach server`
-                    }
-                }
-            })
+            message.channel.send('Could not reach server.');
         } else if (res.status == 200) {
             var scoreboard = res.body.scores
             scoreboard = scoreboard.sort(compare);
-            //console.log(scoreboard);
+            console.log(scoreboard);
 
-            var finalMSG = "**Weekly Competition Scores:**  \n*" + res.body.displayName + ` | ID: ${Current_Competition}*`;
+            var finalMSG = "**Weekly Competition Scores:**  \n*" + res.body.displayName + "*";
             var i = 0;
             for (let val of scoreboard) {
                 i++;
@@ -56,14 +44,7 @@ module.exports.run = async (bot, interaction) => {
             }
 
         }
-        bot.api.interactions(interaction.id, interaction.token).callback.post({
-            data: {
-                type: 4,
-                data: {
-                    content: `${finalMSG}`
-                }
-            }
-        })
+        message.channel.send(finalMSG);
     });
 }
 function compare(a, b) {
