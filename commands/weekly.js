@@ -1,15 +1,15 @@
 const Discord = require('discord.js')
 var ServerTap_API = process.env.PUREVANILLA_SERVER_ENDPOINT || 'localhost:25566'
 var key = process.env.API_KEY;
-var Current_Competition = "dec3";
+var Current_Competition = "ts_EnchantItem";
 
 module.exports.run = async (bot, interaction) => {
     var unirest = require("unirest");
-    
-    if(interaction.data.options) {
+
+    if (interaction.data.options) {
         Current_Competition = interaction.data.options[0].value
     }
-    
+
     var req = unirest("GET", `${ServerTap_API}/v1/scoreboard/` + Current_Competition);
 
     req.headers({
@@ -21,11 +21,12 @@ module.exports.run = async (bot, interaction) => {
     req.end(function (res) {
         if (res.error) {
             console.log(`Error getting /v1/scoreboard/:, ${res.error}`);
-            bot.api.interactions(interaction.id, interaction.token).callback.post({data: {
-                type: 4,
+            bot.api.interactions(interaction.id, interaction.token).callback.post({
                 data: {
-                  content: `Could not reach server`
-                  }
+                    type: 4,
+                    data: {
+                        content: `Could not reach server`
+                    }
                 }
             })
         } else if (res.status == 200) {
@@ -55,24 +56,25 @@ module.exports.run = async (bot, interaction) => {
             }
 
         }
-        bot.api.interactions(interaction.id, interaction.token).callback.post({data: {
-            type: 4,
+        bot.api.interactions(interaction.id, interaction.token).callback.post({
             data: {
-              content: `${finalMSG}`
-              }
+                type: 4,
+                data: {
+                    content: `${finalMSG}`
+                }
             }
         })
     });
 }
 function compare(a, b) {
     if (a.value < b.value) {
-      return 1;
+        return 1;
     }
     if (a.value > b.value) {
-      return -1;
+        return -1;
     }
     return 0;
-  }
+}
 module.exports.help = {
     name: "weekly",
     aliases: ["comp"]
