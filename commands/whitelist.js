@@ -61,5 +61,5 @@ function isRole(user, role) {
 
 module.exports.help = {
     name: "whitelist",
-    aliases: ["relist"]
+    aliases: ["wl"]
 }

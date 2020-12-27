@@ -34,12 +34,9 @@ fs.readdir("./commands/", (err, files) => {
 })
 bot.on("ready", async () => {
   setInterval(function () {
-    console.log("Pingback");
     ping();
   }, interval);
-  console.log(`${bot.user.username} is online on ${bot.guilds.size} servers!`);
-  bot.user.setActivity(`In Development`);
-  bot.user.setStatus('online');
+  console.log(`${bot.user.username} is online!`);
 
   bot.on("message", async message => {
     if (message.author.bot) return;
@@ -103,7 +100,7 @@ function randomImage() {
 }
 function ping() {
   mcping(`play.purevanilla.net`, 25565, function (err, res) {
-    console.log(res)
+
     if (err) {
       // Some kind of error
       console.error(err);
@@ -111,7 +108,6 @@ function ping() {
 
     } else {
       // Success!
-      console.log(res);
 
       bot.user.setActivity("with " + res['num_players'] + " players");
 
