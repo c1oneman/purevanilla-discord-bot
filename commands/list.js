@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) => {
                 final.push('`' + player.displayName.replace(regex, '') + '`')
             });
             // Server pinged back
-            message.channel.send(`Server online with **${final.length}** players.\n ${final.join(', ')}`);
+            message.channel.send(`Server online with **${final.length}** players.\n${final.join(', ')}`);
         }
         else {
             message.channel.send('Could not reach server.');
