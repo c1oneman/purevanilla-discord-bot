@@ -69,10 +69,10 @@ bot.on("ready", async () => {
 // Logic/Helper functions
 
 // Restart schdule to run at server reboot times.
-var restartNight = schedule.scheduleJob({ hour: 8, minute: 0 }, function () {
+var restartNight = schedule.scheduleJob({ hour: 6, minute: 0 }, function () {
   randomImage();
 });
-var restartDay = schedule.scheduleJob({ hour: 20, minute: 0 }, function () {
+var restartDay = schedule.scheduleJob({ hour: 18, minute: 0 }, function () {
   randomImage();
 });
 
