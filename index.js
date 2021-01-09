@@ -11,7 +11,7 @@ var general = process.env.GENERAL_ID
 
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
-
+//758500997730664448
 fs.readdir("./commands/", (err, files) => {
 
   if (err) console.log(err);
@@ -37,7 +37,7 @@ bot.on("ready", async () => {
     ping();
   }, interval);
   console.log(`${bot.user.username} is online!`);
-
+  client.channels.get('758500997730664448').send('Bot has rebooted.');
   bot.on("message", async message => {
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
