@@ -37,7 +37,7 @@ bot.on("ready", async () => {
     ping();
   }, interval);
   console.log(`${bot.user.username} is online!`);
-  bot.channels.get('758500997730664448').send('Bot has rebooted.');
+  bot.channels.cache.get('758500997730664448').send('Bot has rebooted.');
   bot.on("message", async message => {
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
