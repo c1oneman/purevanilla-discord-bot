@@ -7,7 +7,6 @@ var CreativeServerIP = 'creative.purevanilla.net'
 const Discord = require('discord.js')
 
 module.exports.run = async (bot, message, args) => {
-  message.channel.send(':loading:');
   mcping(`${ServerIP}`, 25565, function (err, res) {
     var final = '';
     if (err) {
