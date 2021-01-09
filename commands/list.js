@@ -3,9 +3,9 @@ var unirest = require("unirest");
 var ServerTap_API = process.env.PUREVANILLA_SERVER_ENDPOINT || 'localhost:25566'
 var key = process.env.API_KEY;
 module.exports.run = async (bot, message, args) => {
-    const emoji = bot.emojis.cache.get("797603206117064745")
 
-    message.channel.send(`${emoji}`)
+    message.channel.send("<:loading:797603206117064745>")
+
     //if (!isRole(message.member, "Staff")) return;
     var unirest = require("unirest");
     var req = unirest("GET", `${ServerTap_API}/v1/players`);
