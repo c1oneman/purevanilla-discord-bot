@@ -108,8 +108,8 @@ function ping() {
 
     } else {
       // Success!
-
-      bot.user.setActivity("with " + res['num_players'] + " players");
+      bot.user.setActivity('Under Maintenance');
+      //bot.user.setActivity("with " + res['num_players'] + " players");
 
     }
 
