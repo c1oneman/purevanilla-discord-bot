@@ -1,7 +1,7 @@
 const Discord = require('discord.js')
 var ServerTap_API = process.env.PUREVANILLA_SERVER_ENDPOINT || 'localhost:25566'
 var key = process.env.API_KEY;
-var Current_Competition = "apple";
+var Current_Competition = "ts_DamageTaken";
 
 module.exports.run = async (bot, message, args) => {
     var unirest = require("unirest");
