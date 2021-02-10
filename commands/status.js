@@ -1,15 +1,12 @@
 
 mcping = require('mc-ping');
 
-var ServerIP = process.env.SERVER_IP || 'play.purevanilla.net'
-var CreativeServerIP = 'creative.purevanilla.net'
-
 const Discord = require('discord.js')
 
 module.exports.run = async (bot, message, args) => {
   let servers = [
     { server_ip: "play.purevanilla.net", name: "Pure Vanilla" },
-    { server_ip: "creativee.purevanilla.net", name: "Creative" },
+    { server_ip: "creative.purevanilla.net", name: "Creative" },
   ];
   for(let i = 0; i<servers.length;i++) {
   servers[i] = {
