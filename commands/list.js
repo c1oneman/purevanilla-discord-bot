@@ -3,7 +3,7 @@ var unirest = require("unirest");
 var ServerTap_API =
   process.env.PUREVANILLA_SERVER_ENDPOINT || "localhost:25566";
 var key = process.env.API_KEY;
-module.exports.run = async (bot, message, args) => {
+module.exports.run = (bot, message, args) => {
   message.channel.send("Pulling up player list..");
 
   //if (!isRole(message.member, "Staff")) return;
