@@ -24,12 +24,13 @@ module.exports.run = async (bot, message, args) => {
           final = final + ":green_circle: Pure Vanilla Creative is `online` with " + res['num_players'] + " players.";
         }
         
-      }, 3000);
+      }, 1000);
 
 
     }
-  }, 3000);
-  message.channel.send(final);
+    message.channel.send(final);
+  }, 1000);
+  
 
 }
 
