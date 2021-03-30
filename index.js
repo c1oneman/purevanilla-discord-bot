@@ -42,7 +42,7 @@ bot.on("ready", async () => {
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
     let prefix = botconfig.prefix
-    let messageArray = message.content.split(" ");
+    //let messageArray = message.content.split(" ");
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd = args.shift().toLowerCase();
     let commandfile;
@@ -103,8 +103,10 @@ function ping() {
     } else {
       // Success!
       //bot.user.setActivity('Under Maintenance');
-      bot.user.setActivity("with " + res['num_players'] + " players");
-
+      //bot.user.setActivity("with " + res['num_players'] + " players");
+      //bot.user.setActivity("with " + res['num_players'] + " players");
+      bot.user.setActivity("on Vanilla Tyme");
+      
     }
 
   });
