@@ -9,7 +9,6 @@ module.exports.run = async (bot, message, args) => {
     if (!(args.length == 2)) return;
     console.log(args)
     var survivalReq = unirest("POST", `${ServerTap_API}/v1/server/whitelist`);
-    var creativeReq = unirest("POST", `${Creative_ServerTap_API}/v1/server/whitelist`);
     var headers = {
         "content-type": "application/x-www-form-urlencoded",
         "accept": "application/json",
@@ -19,10 +18,10 @@ module.exports.run = async (bot, message, args) => {
         "name": args[1].toString()
     }
     survivalReq.headers(headers);
-    creativeReq.headers(headers);
+    
 
     survivalReq.form(form);
-    creativeReq.form(form);
+   
     let member = message.mentions.members.first();
     try {
         message.mentions.members.first().setNickname(args[1].toString());
@@ -45,15 +44,7 @@ module.exports.run = async (bot, message, args) => {
         }
         message.channel.send(responseMsg);
     });
-    creativeReq.end(function (res) {
-        if (res.status == 200) {
-            console.log('Creative whitelist success')
-            responseMsg = "";
-        } else {
-            responseMsg = "**Creative failed to whitelist..** `/status`";
-        }
-        message.channel.send(responseMsg);
-    });
+    
 }
 function isRole(user, role) {
     return user.roles.cache.find(r => r.name === role)

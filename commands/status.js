@@ -5,7 +5,7 @@ const Discord = require('discord.js')
 
 module.exports.run = async (bot, message, args) => {
   let servers = [
-    { server_ip: "71.208.198.106", name: "Pure Vanilla" },
+    { server_ip: "localhost", name: "Pure Vanilla" },
   ];
   for(let i = 0; i<servers.length;i++) {
   servers[i] = {
@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) => {
     final =
       final +
       `${server.online ? ":green_circle:" : ":red_circle:"} ${server.name} is ${
-        server.online ? "`online` with " : "`offline`."
+        server.online ? "`online` with" : "`offline`."
       } ${server.online ? server.players + " players." : ""}\n`;
   })
   message.channel.send(final);
