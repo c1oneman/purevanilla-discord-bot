@@ -93,7 +93,7 @@ function randomImage() {
   });
 }
 function ping() {
-  mcping(`play.purevanilla.net`, 25565, function (err, res) {
+  mcping(`71.208.198.106`, 25565, function (err, res) {
 
     if (err) {
       // Some kind of error
