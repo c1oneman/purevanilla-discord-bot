@@ -30,7 +30,7 @@ module.exports.run = (bot, message, args) => {
       );
     } else {
       message.channel.send("Could not reach server.");
-      console.log(res.message);
+      console.log(res);
     }
   });
 };
