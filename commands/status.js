@@ -5,7 +5,7 @@ const Discord = require('discord.js')
 
 module.exports.run = async (bot, message, args) => {
   let servers = [
-    { server_ip: "localhost", name: "Pure Vanilla" },
+    { server_ip: "play.purevanilla.net", name: "Pure Vanilla" },
   ];
   for(let i = 0; i<servers.length;i++) {
   servers[i] = {

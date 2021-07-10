@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
     console.log("args:", args)
     console.log(args.length)
     if (!(args.length == 3)) {
-        message.channel.send('Invalid format. \n./marker x z TEXT_WITH_UNDERSCORE_SPACES')
+        message.channel.send('Invalid format. \n.-marker x z TEXT_WITH_UNDERSCORE_SPACES')
         return
     };
     console.log(args)
@@ -45,7 +45,7 @@ module.exports.run = async (bot, message, args) => {
                 console.log(res.body)
                 let role = message.guild.roles.cache.find(r => r.name === "hasCreatedMarker_1");
                 message.member.roles.add(role).catch(console.error);
-                message.author.send(`---------------------------------------\n**Greetings from Pure Vanilla! :icecream:**\nWe have created a Dynmap marker for you! You can view it on the Dynmap at x:${args[0]} z:${args[1]} in the overworld.\n**IMPORTANT!!** Take this \`ID\` for safekeeping!\n→\`${keySecret}\` \nYou will use it to update your marker. Anyone can use this code. ex: /remark **${keySecret}** X Y NEW_TEXT\n---------------------------------------`)
+                message.author.send(`\n**Greetings from Pure Vanilla! :icecream:**\nWe have created a Dynmap marker for you! You can view it on the Dynmap at x:${args[0]} z:${args[1]} in the overworld.\n**IMPORTANT!!** Take this \`ID\` for safekeeping!\n→\`${keySecret}\` \nYou will use it to update your marker. Anyone can use this code. ex: -remark **${keySecret}** X Y NEW_TEXT\n`)
             }
         } else {
            // Failure
