@@ -5,7 +5,7 @@ const { nanoid, customAlphabet } = require('nanoid')
 var ServerTap_API = process.env.PUREVANILLA_SERVER_ENDPOINT || 'localhost:25566'
 
 module.exports.run = async (bot, message, args) => {
-    if (!isRole(message.member, "Staff")) return;
+    
     if (!isRole(message.member, "Member")) return;
     if (isRole(message.member, "hasCreatedMarker_1") && !isRole(message.member, "Staff")) {
         message.channel.send('Sorry! Members are currently allowed to create just one marker on the dynmap.\n`Contact staff for help on how to change an existing marker.`')

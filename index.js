@@ -149,7 +149,7 @@ function randomImage() {
   });
 }
 function ping() {
-  mcping(`localhost`, 25565, function (err, res) {
+  mcping(`play.purevanilla.net`, 25565, function (err, res) {
 
     if (err) {
       // Some kind of error
@@ -160,8 +160,8 @@ function ping() {
       // Success!
       //bot.user.setActivity('Under Maintenance');
       //bot.user.setActivity("with " + res['num_players'] + " players");
-      //bot.user.setActivity("with " + res['num_players'] + " players");
-      bot.user.setActivity("Under Maintenance");
+      bot.user.setActivity("with " + res['num_players'] + " players");
+      //bot.user.setActivity("Under Maintenance");
       
     }
 
