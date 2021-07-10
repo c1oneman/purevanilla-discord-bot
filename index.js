@@ -39,6 +39,7 @@ bot.on("ready", async () => {
     ping();
   }, interval);
   console.log(`${bot.user.username} is online!`);
+  console.log('online');
   bot.channels.cache.get('758500997730664448').send('Bot has rebooted.');
   bot.on("message", async message => {
     if (message.author.bot) return;
