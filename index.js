@@ -32,6 +32,7 @@ const getApp = (guildId) => {
 };
 
 client.on("ready", async () => {
+  ping();
   setInterval(function () {
     ping();
   }, interval);
