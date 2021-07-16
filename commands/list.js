@@ -1,13 +1,9 @@
 const Discord = require("discord.js");
 var unirest = require("unirest");
-var ServerTap_API =
-  process.env.PUREVANILLA_SERVER_ENDPOINT || "localhost:25566";
+var ServerTap_API = process.env.PUREVANILLA_SERVER_ENDPOINT;
 var key = process.env.API_KEY;
-module.exports.run = (bot, message, args) => {
-  message.channel.send("Pulling up player list..");
 
-  //if (!isRole(message.member, "Staff")) return;
-  var unirest = require("unirest");
+module.exports.run = async (interaction, client) => {
   var req = unirest("GET", `${ServerTap_API}/v1/players`);
 
   req.headers({
@@ -25,20 +21,44 @@ module.exports.run = (bot, message, args) => {
         final.push("`" + player.displayName.replace(regex, "") + "`");
       });
       // Server pinged back
-      message.channel.send(
+      console.log(final);
+      reply(
+        interaction,
+        client,
         `Server online with **${final.length}** players.\n${final.join(", ")}`
       );
     } else {
-      message.channel.send("Could not reach server.");
-      console.log(res);
+      reply(interaction, client, `Something went wrong.`);
     }
   });
 };
-function isRole(user, role) {
-  return user.roles.cache.find((r) => r.name === role);
-}
+const reply = async (interaction, client, response) => {
+  let data = {
+    content: response,
+  };
 
+  // Check for embeds
+  if (typeof response === "object") {
+    data = await createAPIMessage(interaction, client, response);
+  }
+
+  client.api.interactions(interaction.id, interaction.token).callback.post({
+    data: {
+      type: 4,
+      data,
+    },
+  });
+};
+const createAPIMessage = async (interaction, client, content) => {
+  const { data, files } = await Discord.APIMessage.create(
+    client.channels.resolve(interaction.channel_id),
+    content
+  )
+    .resolveData()
+    .resolveFiles();
+
+  return { ...data, files };
+};
 module.exports.help = {
   name: "list",
-  aliases: ["playerlist"],
 };
