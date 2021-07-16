@@ -12,6 +12,13 @@ const getApp = (guildId) => {
 };
 
 client.on("ready", async () => {
+  // map
+  await getApp(guildId).commands.post({
+    data: {
+      name: "map",
+      description: "Display current dynmap URL.",
+    },
+  });
   //weekly
   await getApp(guildId).commands.post({
     data: {
