@@ -12,6 +12,7 @@ const getApp = (guildId) => {
 };
 
 client.on("ready", async () => {
+  console.log("ready");
   // map
   await getApp(guildId).commands.post({
     data: {
@@ -20,68 +21,68 @@ client.on("ready", async () => {
     },
   });
   //weekly
-  await getApp(guildId).commands.post({
-    data: {
-      name: "weekly",
-      description: "Display current weekly challenge scores.",
-      options: [
-        {
-          name: "week",
-          description: "Week of competition",
-          type: 4,
-        },
-      ],
-    },
-  });
-  // whitelist
-  await getApp(guildId).commands.post({
-    data: {
-      name: "whitelist",
-      description: "Whitelist a new member.",
-      options: [
-        {
-          name: "discord",
-          description: "New member Disord @",
-          required: true,
-          type: 6, // user
-        },
-        {
-          name: "ign",
-          description: "New member IGN",
-          required: true,
-          type: 3, // String
-        },
-      ],
-    },
-  });
-  // help
-  await getApp(guildId).commands.post({
-    data: {
-      name: "help",
-      description: "List of commands.",
-    },
-  });
-  //list
-  await getApp(guildId).commands.post({
-    data: {
-      name: "list",
-      description: "Display current online players.",
-    },
-  });
-  // status
-  await getApp(guildId).commands.post({
-    data: {
-      name: "status",
-      description: "Display current server status.",
-    },
-  });
+  // await getApp(guildId).commands.post({
+  //   data: {
+  //     name: "weekly",
+  //     description: "Display current weekly challenge scores.",
+  //     options: [
+  //       {
+  //         name: "week",
+  //         description: "Week of competition",
+  //         type: 4,
+  //       },
+  //     ],
+  //   },
+  // });
+  // // whitelist
+  // await getApp(guildId).commands.post({
+  //   data: {
+  //     name: "whitelist",
+  //     description: "Whitelist a new member.",
+  //     options: [
+  //       {
+  //         name: "discord",
+  //         description: "New member Disord @",
+  //         required: true,
+  //         type: 6, // user
+  //       },
+  //       {
+  //         name: "ign",
+  //         description: "New member IGN",
+  //         required: true,
+  //         type: 3, // String
+  //       },
+  //     ],
+  //   },
+  // });
+  // // help
+  // await getApp(guildId).commands.post({
+  //   data: {
+  //     name: "help",
+  //     description: "List of commands.",
+  //   },
+  // });
+  // //list
+  // await getApp(guildId).commands.post({
+  //   data: {
+  //     name: "list",
+  //     description: "Display current online players.",
+  //   },
+  // });
+  // // status
+  // await getApp(guildId).commands.post({
+  //   data: {
+  //     name: "status",
+  //     description: "Display current server status.",
+  //   },
+  // });
 
-  //tps - Staff
-  await getApp(guildId).commands.post({
-    data: {
-      name: "tps",
-      description: "Display current server ticks per second.",
-    },
-  });
+  // //tps - Staff
+  // await getApp(guildId).commands.post({
+  //   data: {
+  //     name: "tps",
+  //     description: "Display current server ticks per second.",
+  //   },
+  // });
 });
 client.login(process.env.TOKEN);

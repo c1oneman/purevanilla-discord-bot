@@ -28,19 +28,22 @@ module.exports.run = async (interaction, client) => {
 
       var finalMSG =
         "**Weekly Competition Scores:**  \n*" + res.body.displayName + "*";
-      var i = 0;
+      let i = 0;
       for (let val of scoreboard) {
         i++;
         if (i < 11) {
           console.log(val.entry);
-          var extra = "";
+          let extra = "";
           switch (i) {
             case 1:
               extra = "🥇";
+              break;
             case 2:
               extra = "🥈";
+              break;
             case 3:
               extra = "🥉";
+              break;
             default:
               extra = "  " + i + ". ";
           }
