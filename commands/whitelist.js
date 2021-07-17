@@ -50,7 +50,7 @@ module.exports.run = async (interaction, client) => {
 
       embed
         .setTitle("Pure Vanilla")
-        .setDescription("Welcome to Pure Vanilla, NotClay!")
+        .setDescription(`Welcome to Pure Vanilla, ${ign}!`)
         .addField("Nickname Updated", ":white_check_mark:", false)
         .addField("IGN", `\`${ign}\``, true)
         .addField("Discord", `\`@${ign}\``, true)
