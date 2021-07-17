@@ -3,6 +3,7 @@ const Discord = require("discord.js");
 mcping = require("mc-ping");
 
 module.exports.run = async (interaction, client) => {
+  console.log(interaction.data);
   let servers = [{ server_ip: "play.purevanilla.net", name: "Pure Vanilla" }];
   for (let i = 0; i < servers.length; i++) {
     servers[i] = {
