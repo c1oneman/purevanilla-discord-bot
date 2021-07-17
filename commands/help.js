@@ -5,7 +5,7 @@ module.exports.run = async (interaction, client) => {
   let embed = new Discord.MessageEmbed()
     .setTitle("Pure Vanilla Bot Help")
     //.addField("Get IP Address", "`/ip`")
-    //.addField("Get dynmap URL", "`/map`")
+    .addField("Get dynmap URL", "`/map`")
     .addField("Get server status", "`/status`")
     .addField("Get list of online players", "`/list`")
     .addField("Get weekly comp. scores", "`/weekly`");

@@ -4,8 +4,12 @@ var ServerTap_API = process.env.PUREVANILLA_SERVER_ENDPOINT;
 var key = process.env.API_KEY;
 module.exports.run = async (interaction, client) => {
   let embed = new Discord.MessageEmbed().setTitle("Weekly Competition");
-  const Current_Competition = "week_1";
-  embed.setColor("#d8e60e");
+  let Current_Competition = "week_2";
+  const { options } = interaction.data;
+  if (typeof options[0].value == "number") {
+    Current_Competition = `week_${options[0].value}`;
+  }
+  embed.setColor("#f7ff8c");
   var req = unirest(
     "GET",
     `${ServerTap_API}/v1/scoreboard/` + Current_Competition
@@ -20,7 +24,11 @@ module.exports.run = async (interaction, client) => {
   req.end(function (res) {
     if (res.error) {
       console.log(`Error getting /v1/scoreboard/:, ${res.error}`);
-      reply(interaction, client, "Error grabbing data.");
+      reply(
+        interaction,
+        client,
+        "Error grabbing data, that week might not exist."
+      );
     } else if (res.status == 200) {
       var scoreboard = res.body.scores;
       scoreboard = scoreboard.sort(compare);
