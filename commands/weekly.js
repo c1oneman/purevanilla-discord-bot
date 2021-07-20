@@ -66,7 +66,11 @@ module.exports.run = async (interaction, client) => {
               extra = "  " + i + ". ";
           }
           finalMSG = "\n" + extra + " " + val.entry;
-          embed.addField(`${finalMSG} - \`${val.value}\``, "\u200B", false);
+          embed.addField(
+            `${finalMSG} - \`${val.value.toLocaleString()}\``,
+            "\u200B",
+            false
+          );
         }
       }
       var now = new Date();
