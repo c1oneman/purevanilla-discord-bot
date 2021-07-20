@@ -4,7 +4,7 @@ module.exports.run = async (interaction, client) => {
   let embed = new Discord.MessageEmbed()
     .setTitle("Pure Vanilla Dynmap")
     .setURL("https://map.purevanilla.net/");
-  embed.setColor("#0e85e6");
+  embed.setColor("#fff");
   reply(interaction, client, embed);
 };
 const reply = async (interaction, client, response) => {

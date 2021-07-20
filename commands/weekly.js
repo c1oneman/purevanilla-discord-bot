@@ -3,13 +3,17 @@ var unirest = require("unirest");
 var ServerTap_API = process.env.PUREVANILLA_SERVER_ENDPOINT;
 var key = process.env.API_KEY;
 module.exports.run = async (interaction, client) => {
-  let embed = new Discord.MessageEmbed().setTitle("Weekly Competition");
-  let Current_Competition = "week_2";
+  let embed = new Discord.MessageEmbed();
+
+  let Current_Competition_Week = "2";
+  let Current_Competition = "";
   const { options } = interaction.data;
-  if (typeof options[0].value == "number") {
+  if (options != undefined) {
     Current_Competition = `week_${options[0].value}`;
+  } else {
+    Current_Competition = `week_${Current_Competition_Week}`;
   }
-  embed.setColor("#ffcb00");
+
   var req = unirest(
     "GET",
     `${ServerTap_API}/v1/scoreboard/` + Current_Competition
@@ -34,33 +38,50 @@ module.exports.run = async (interaction, client) => {
       scoreboard = scoreboard.sort(compare);
       console.log(scoreboard);
 
-      var finalMSG =
-        "**Weekly Competition Scores:**  \n*" + res.body.displayName + "*";
+      var finalMSG;
+      embed.setTitle(res.body.displayName);
       let i = 0;
+      let firstPlaceIGN;
       for (let val of scoreboard) {
         i++;
-        if (i < 11) {
+        if (i < 6) {
           console.log(val.entry);
+
           let extra = "";
           switch (i) {
             case 1:
+              firstPlaceIGN = val.entry;
               extra = "🥇";
               break;
             case 2:
               extra = "🥈";
+
               break;
             case 3:
               extra = "🥉";
+
               break;
             default:
               extra = "  " + i + ". ";
           }
-          finalMSG =
-            finalMSG + "\n" + extra + " " + val.entry + "  `" + val.value + "`";
+          finalMSG = "\n" + extra + " " + val.entry;
+          embed.addField(`${finalMSG} - \`${val.value}\``, "\u200B", false);
         }
       }
+      var now = new Date();
+      embed
+        .setAuthor(
+          "Pure Vanilla Weekly Competition",
+          "https://i.imgur.com/y4gEvak.png"
+        )
+        .setDescription(`Week ${Current_Competition_Week} - Top Scores`)
+        .setFooter(`via. /weekly ${Current_Competition_Week}`)
+        .setTimestamp(now)
+        .setURL("https://minecraft.fandom.com/wiki/Axolotl")
+        .setThumbnail(`https://mc-heads.net/avatar/${firstPlaceIGN}/100`)
+        .setColor("#ffffff");
+      reply(interaction, client, embed);
     }
-    reply(interaction, client, finalMSG);
   });
 };
 function compare(a, b) {
