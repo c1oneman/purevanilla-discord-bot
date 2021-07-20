@@ -5,7 +5,7 @@ var key = process.env.API_KEY;
 
 module.exports.run = async (interaction, client) => {
   const guild = client.guilds.cache.get(interaction.guild_id);
-
+  let embed = new Discord.MessageEmbed();
   if (!isRole(interaction.member, guild, "Staff")) {
     reply(
       interaction,
@@ -13,21 +13,45 @@ module.exports.run = async (interaction, client) => {
       "Sorry, this command is currently reserved for Staff."
     );
   }
-  var req = unirest("GET", `${ServerTap_API}/v1/server`);
+  var req = unirest("POST", `${ServerTap_API}/v1/server/exec`)
+    .headers({
+      key: `${key}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    .send("command=tps")
+    .send("time=0")
+    .end(function (res) {
+      {
+        if (res.status == 200) {
+          // Server pinged back
+          console.log(res.body);
+          const titles = ["1m", "5m", "15m"];
 
-  req.headers({
-    "content-type": "application/x-www-form-urlencoded",
-    accept: "application/json",
-    key: key,
-  });
-  req.end(function (res) {
-    if (res.status == 200) {
-      // Server pinged back
-      reply(interaction, client, "Reported TPS: **" + res.body.tps + "**");
-    } else {
-      reply(interaction, client, "Could not reach server.");
-    }
-  });
+          let parse = res.body
+            .replace("TPS from last 1m, 5m, 15m: ", " ")
+            .split(", ");
+          switch (parse[1]) {
+            case "20.0":
+              embed.setColor("#44eb63");
+              break;
+            default:
+              embed.setColor("#e8901c");
+          }
+          for (let i = 0; i < parse.length; i++) {
+            embed.addField(titles[i], parse[i], true);
+          }
+          embed
+            .setTitle("Ticks Per Second")
+            .setDescription("Current TPS on Pure Vanilla")
+            .setURL("https://minecraft.fandom.com/wiki/Tick");
+          console.log(parse);
+          reply(interaction, client, embed);
+        } else {
+          //reply(interaction, client, "Could not reach server.");
+          console.log(res);
+        }
+      }
+    });
 };
 const reply = async (interaction, client, response) => {
   let data = {
