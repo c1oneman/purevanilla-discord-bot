@@ -25,7 +25,7 @@ module.exports.run = async (interaction, client) => {
         if (res.status == 200) {
           // Server pinged back
           console.log(res.body);
-          const titles = ["1m", "5m", "15m"];
+          const titles = ["1 minute", "5 minutes", "15 minutes"];
 
           let parse = res.body
             .replace("TPS from last 1m, 5m, 15m: ", " ")
@@ -42,8 +42,12 @@ module.exports.run = async (interaction, client) => {
           }
           embed
             .setTitle("Ticks Per Second")
-            .setDescription("Current TPS on Pure Vanilla")
-            .setURL("https://minecraft.fandom.com/wiki/Tick");
+            .setDescription("Average TPS from last")
+            .setURL("https://minecraft.fandom.com/wiki/Tick")
+            .setAuthor(
+              "Pure Vanilla Status",
+              "https://i.imgur.com/y4gEvak.png"
+            );
           console.log(parse);
           reply(interaction, client, embed);
         } else {
