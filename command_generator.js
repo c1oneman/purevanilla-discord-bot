@@ -16,8 +16,8 @@ client.on("ready", async () => {
   // map
   await getApp(guildId).commands.post({
     data: {
-      name: "map",
-      description: "Display current dynmap URL.",
+      name: "vote",
+      description: "Display current vote links.",
     },
   });
   //weekly

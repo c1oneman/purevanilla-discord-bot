@@ -9,7 +9,7 @@ module.exports.run = async (interaction, client) => {
   if (typeof options[0].value == "number") {
     Current_Competition = `week_${options[0].value}`;
   }
-  embed.setColor("#f7ff8c");
+  embed.setColor("#ffcb00");
   var req = unirest(
     "GET",
     `${ServerTap_API}/v1/scoreboard/` + Current_Competition

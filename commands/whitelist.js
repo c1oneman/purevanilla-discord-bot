@@ -60,7 +60,7 @@ module.exports.run = async (interaction, client) => {
           "https://i.imgur.com/y4gEvak.png"
         );
 
-      embed.setColor("#64e60e");
+      embed.setColor("#ffcb00");
       reply(interaction, client, embed);
     } else {
       reply(interaction, client, "Could not reach server.");
