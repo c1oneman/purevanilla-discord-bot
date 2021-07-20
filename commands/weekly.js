@@ -10,6 +10,7 @@ module.exports.run = async (interaction, client) => {
   const { options } = interaction.data;
   if (options != undefined) {
     Current_Competition = `week_${options[0].value}`;
+    Current_Competition_Week = options[0].value;
   } else {
     Current_Competition = `week_${Current_Competition_Week}`;
   }
