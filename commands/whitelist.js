@@ -19,6 +19,10 @@ module.exports.run = async (interaction, client) => {
 
   // Unirest
   var survivalReq = unirest("POST", `${ServerTap_API}/v1/server/whitelist`);
+  var creativeReq = unirest(
+    "POST",
+    `http://creative.purevanilla.net/v1/server/whitelist`
+  );
   var headers = {
     "content-type": "application/x-www-form-urlencoded",
     accept: "application/json",
@@ -27,6 +31,10 @@ module.exports.run = async (interaction, client) => {
   var form = {
     name: ign,
   };
+
+  creativeReq.headers(headers);
+
+  creativeReq.form(form);
   survivalReq.headers(headers);
 
   survivalReq.form(form);
@@ -34,6 +42,13 @@ module.exports.run = async (interaction, client) => {
   survivalReq.end(async function (res) {
     console.log(res);
     if (res.status == 200) {
+      creativeReq.end(async function (res) {
+        if (res.status == 200) {
+          `Added ${ign} to creative`;
+        } else {
+          console.log(res);
+        }
+      });
       let roleID = guild.roles.cache.find((role) => role.name === "Member");
 
       var member = await guild.members.fetch(discordUserID);
