@@ -21,7 +21,7 @@ module.exports.run = async (interaction, client) => {
   var survivalReq = unirest("POST", `${ServerTap_API}/v1/server/whitelist`);
   var creativeReq = unirest(
     "POST",
-    `http://creative.purevanilla.net/v1/server/whitelist`
+    `http://creative.purevanilla.net:25567/v1/server/whitelist`
   );
   var headers = {
     "content-type": "application/x-www-form-urlencoded",
