@@ -10,22 +10,31 @@ module.exports.run = async (interaction, client) => {
 
   const guild = client.guilds.cache.get(interaction.guild_id);
   let embed = new Discord.MessageEmbed();
-  if (!isRole(interaction.member, guild, "Staff")) {
+  if (isRole(interaction.member, guild, "hasMarked")) {
     reply(interaction, client, "Sorry this command can only be run once!");
     return;
   }
-  const { options } = interaction.data;
+  if (!isRole(interaction.member, guild, "Member")) {
+    reply(
+      interaction,
+      client,
+      "Sorry this command can only be run by members!"
+    );
+    return;
+  }
 
+  const { options } = interaction.data;
+  let roleID = guild.roles.cache.find((role) => role.name === "Member");
   const label = options[0].value;
   const icon = options[1].value;
   const x = options[2].value;
   const z = options[3].value;
   const world = options[4].value;
   const uuid = nanoid();
-  const id = `${user}_${uuid}`;
+  const id = `${interaction.member.nickname}_${uuid}`;
   const confirm = options[5].value;
-
-  if (confirm !== "Yes!") {
+  console.log(confirm);
+  if (confirm !== "true") {
     reply(
       interaction,
       client,
@@ -39,7 +48,7 @@ module.exports.run = async (interaction, client) => {
       "Content-Type": "application/x-www-form-urlencoded",
     })
     .send(
-      `command=dmarker add id:${id} "${label}" world:${world} x:${x} y:0 z:${z} icon:${icon}`
+      `command=dmarker add id:${id} "${label}" world:${world} x:${x} y:0 z:${z} icon:${icon} set:1`
     )
     .send("time=0")
     .end(function (res) {
@@ -53,13 +62,15 @@ module.exports.run = async (interaction, client) => {
             .setColor("#6ff542")
             .setDescription("Click the link to view it on the dynmap!")
             .setURL(
-              `https://map.purevanilla.net?worldname=${world}&mapname=surface&zoom=6&x=${x}&y=64&z=${z}`
+              `https://map.purevanilla.net?worldname=${world}&mapname=surface&zoom=6&x=${
+                x + 100
+              }&y=64&z=${z + 100}`
             )
             .setAuthor(
               "Pure Vanilla Dynmap",
               "https://i.imgur.com/y4gEvak.png"
             );
-          console.log(parse);
+
           reply(interaction, client, embed);
         } else {
           //reply(interaction, client, "Could not reach server.");
@@ -100,5 +111,5 @@ function isRole(member, guild, role) {
   return member.roles.find((r) => r === roleID.id);
 }
 module.exports.help = {
-  name: "tps",
+  name: "marker",
 };
