@@ -117,8 +117,8 @@ client.on("ready", async () => {
           required: true,
         },
         {
-          name: "y",
-          description: "Y coordinate of marker?",
+          name: "z",
+          description: "Z coordinate of marker?",
           type: 4,
           required: true,
         },
