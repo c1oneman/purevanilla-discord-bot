@@ -57,12 +57,6 @@ module.exports.run = async (interaction, client) => {
         console.log("e");
       });
 
-      try {
-        member.roles.add(roleID);
-      } catch {
-        console.log("Failed to set role");
-      }
-
       embed
         .setTitle("Pure Vanilla")
         .setDescription(`Welcome to Pure Vanilla, ${ign}!`)
@@ -74,7 +68,16 @@ module.exports.run = async (interaction, client) => {
           "You may join at the IP above.",
           "https://i.imgur.com/y4gEvak.png"
         );
-
+      try {
+        member.roles.add(roleID);
+      } catch {
+        console.log("Failed to set role");
+        embed.addField(
+          "!! **Failed to set Member role** !!",
+          "Please manually override",
+          false
+        );
+      }
       embed.setColor("#ffcb00");
       reply(interaction, client, embed);
     } else {
