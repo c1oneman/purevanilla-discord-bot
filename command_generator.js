@@ -13,13 +13,162 @@ const getApp = (guildId) => {
 
 client.on("ready", async () => {
   console.log("ready");
-  // map
+  // marker
+
   await getApp(guildId).commands.post({
     data: {
-      name: "vote",
-      description: "Display current vote links.",
+      name: "marker",
+      description: "Create a dynmap marker!",
+      options: [
+        {
+          name: "label",
+          description: "Title of marker on map.",
+          type: 3,
+          required: true,
+        },
+        {
+          name: "icon",
+          description: "Pick an icon for the marker.",
+          type: 3,
+          required: true,
+          choices: [
+            {
+              name: "House",
+              value: "house",
+            },
+            {
+              name: "Light House",
+              value: "lighthouse",
+            },
+            {
+              name: "Shopping Basket",
+              value: "basket",
+            },
+            {
+              name: "Temple",
+              value: "temple",
+            },
+            {
+              name: "Portal",
+              value: "portal",
+            },
+            {
+              name: "Skull",
+              value: "skull",
+            },
+            {
+              name: "Heart",
+              value: "heart",
+            },
+            {
+              name: "Flower",
+              value: "flower",
+            },
+            {
+              name: "Bookshelf",
+              value: "bookshelf",
+            },
+            {
+              name: "Sign",
+              value: "sign",
+            },
+            {
+              name: "Globe",
+              value: "world",
+            },
+            {
+              name: "Minecart",
+              value: "minecart",
+            },
+            {
+              name: "Coins",
+              value: "coins",
+            },
+            {
+              name: "Chest",
+              value: "chest",
+            },
+            {
+              name: "Building",
+              value: "building",
+            },
+            {
+              name: "Anchor",
+              value: "anchor",
+            },
+            {
+              name: "Beer",
+              value: "beer",
+            },
+            {
+              name: "Gear",
+              value: "gear",
+            },
+            {
+              name: "Cultry",
+              value: "cultry",
+            },
+          ],
+        },
+        {
+          name: "x",
+          description: "X coordinate of marker?",
+          type: 4,
+          required: true,
+        },
+        {
+          name: "y",
+          description: "Y coordinate of marker?",
+          type: 4,
+          required: true,
+        },
+        {
+          name: "world",
+          description: "What world will this be in?",
+          type: 3,
+          required: true,
+          choices: [
+            {
+              name: "Overworld",
+              value: "world",
+            },
+            {
+              name: "Nether",
+              value: "world_nether",
+            },
+            {
+              name: "End",
+              value: "world_the_end",
+            },
+          ],
+        },
+        {
+          name: "confirm",
+          description:
+            "I adknowledge that I can not modify this marker, and I can not create until the next marker reset.",
+          type: 3,
+          required: true,
+          choices: [
+            {
+              name: "Yes!",
+              value: "true",
+            },
+            {
+              name: "No, cancel.",
+              value: "false",
+            },
+          ],
+        },
+      ],
     },
   });
+  // map
+  // await getApp(guildId).commands.post({
+  //   data: {
+  //     name: "vote",
+  //     description: "Display current vote links.",
+  //   },
+  // });
   //weekly
   // await getApp(guildId).commands.post({
   //   data: {
