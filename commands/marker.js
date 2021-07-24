@@ -25,7 +25,8 @@ module.exports.run = async (interaction, client) => {
 
   const { options } = interaction.data;
   let roleID = guild.roles.cache.find((role) => role.name === "hasMarked");
-  const label = options[0].value;
+  let label = options[0].value;
+  label = label.replaceAll("'", "");
   const icon = options[1].value;
   const x = options[2].value;
   const z = options[3].value;
