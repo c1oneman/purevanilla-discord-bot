@@ -10,13 +10,7 @@ module.exports.run = async (interaction, client) => {
 
   const guild = client.guilds.cache.get(interaction.guild_id);
   let embed = new Discord.MessageEmbed();
-  if (
-    isRole(
-      interaction.member,
-      guild,
-      "hasMarked" && !isRole(interaction.member, guild, "Founder")
-    )
-  ) {
+  if (isRole(interaction.member, guild, "hasMarked")) {
     reply(interaction, client, "Sorry this command can only be run once!");
     return;
   }
