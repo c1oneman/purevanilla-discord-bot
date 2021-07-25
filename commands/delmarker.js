@@ -12,7 +12,7 @@ module.exports.run = async (interaction, client) => {
     return;
   }
   const { options } = interaction.data;
-  const id = options[1].value;
+  const id = options[0].value;
 
   var req = unirest("POST", `${ServerTap_API}/v1/server/exec`)
     .headers({
@@ -29,7 +29,7 @@ module.exports.run = async (interaction, client) => {
           embed
             .setTitle("Marker Removed")
             .setColor("#6ff542")
-            .setDescription(id)
+            .setDescription(res.body)
             .setAuthor(
               "Pure Vanilla Dynmap",
               "https://i.imgur.com/y4gEvak.png"

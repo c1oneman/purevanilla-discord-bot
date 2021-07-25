@@ -24,6 +24,7 @@ client.on("ready", async () => {
           name: "id",
           description: "ID of marker",
           type: 3,
+          required: true,
         },
       ],
     },
