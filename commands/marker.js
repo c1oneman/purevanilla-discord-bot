@@ -32,7 +32,7 @@ module.exports.run = async (interaction, client) => {
   const z = options[3].value;
   const world = options[4].value;
   const uuid = nanoid();
-  const id = `${interaction.member.nickname}_${uuid}`;
+  const id = `${uuid}`;
   const confirm = options[5].value;
   console.log(confirm);
   if (confirm !== "true") {
@@ -69,6 +69,7 @@ module.exports.run = async (interaction, client) => {
                 x + 100
               }&y=64&z=${z + 100}`
             )
+            .setFooter("id")
             .setAuthor(
               "Pure Vanilla Dynmap",
               "https://i.imgur.com/y4gEvak.png"
