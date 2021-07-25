@@ -69,7 +69,7 @@ module.exports.run = async (interaction, client) => {
                 x + 100
               }&y=64&z=${z + 100}`
             )
-            .setFooter("id")
+            .setFooter(`${id}`)
             .setAuthor(
               "Pure Vanilla Dynmap",
               "https://i.imgur.com/y4gEvak.png"
