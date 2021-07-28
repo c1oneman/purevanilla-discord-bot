@@ -5,8 +5,8 @@ mcping = require("mc-ping");
 module.exports.run = async (interaction, client) => {
   console.log(interaction.data);
   let servers = [
-    { server_ip: "play.purevanilla.net", name: "Pure Vanilla" },
-    { server_ip: "creative.purevanilla.net", name: "Pure Vanilla Creative" },
+    { server_ip: "172.18.0.1:25575", name: "Pure Vanilla" },
+    { server_ip: "172.18.0.1:25580", name: "Pure Vanilla Creative" },
   ];
   for (let i = 0; i < servers.length; i++) {
     servers[i] = {
