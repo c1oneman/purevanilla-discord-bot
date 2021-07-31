@@ -84,7 +84,9 @@ module.exports.run = async (interaction, client) => {
         .setDescription(`Week ${Current_Competition_Week} - Top Scores`)
         .setFooter(`via. /weekly ${Current_Competition_Week}`)
         .setTimestamp(now)
-        .setURL("https://minecraft.fandom.com/wiki/Cake")
+        .setURL(
+          "https://docs.google.com/spreadsheets/d/1IJ_O4tFrucDzNM26DpbeGDIC6zuyCXXe4RLxCnYlYoQ/edit#gid=0"
+        )
         .setThumbnail(`https://mc-heads.net/avatar/${firstPlaceIGN}/100`)
         .setColor("#ffffff");
       reply(interaction, client, embed);
