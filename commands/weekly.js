@@ -85,8 +85,10 @@ module.exports.run = async (interaction, client) => {
         .setFooter(`via. /weekly ${Current_Competition_Week}`)
         .setTimestamp(now)
         .setURL("https://minecraft.fandom.com/wiki/Shovel")
-        .setThumbnail(`https://mc-heads.net/avatar/${firstPlaceIGN}/100`)
         .setColor("#ffffff");
+      if (firstPlaceIGN != undefined || firstPlaceIGN != "") {
+        embed.setThumbnail(`https://mc-heads.net/avatar/${firstPlaceIGN}/100`);
+      }
       reply(interaction, client, embed);
     }
   });
