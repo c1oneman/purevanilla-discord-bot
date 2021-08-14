@@ -86,6 +86,7 @@ module.exports.run = async (interaction, client) => {
         .setTimestamp(now)
         .setURL("https://minecraft.fandom.com/wiki/Shovel")
         .setColor("#ffffff");
+      console.log(firstPlaceIGN);
       if (firstPlaceIGN != undefined || firstPlaceIGN != "") {
         embed.setThumbnail(`https://mc-heads.net/avatar/${firstPlaceIGN}/100`);
       }
