@@ -5,7 +5,7 @@ var key = process.env.API_KEY;
 module.exports.run = async (interaction, client) => {
   let embed = new Discord.MessageEmbed();
 
-  let Current_Competition_Week = "5";
+  let Current_Competition_Week = "6";
   let Current_Competition = "";
   const { options } = interaction.data;
   if (options != undefined) {
@@ -84,9 +84,7 @@ module.exports.run = async (interaction, client) => {
         .setDescription(`Week ${Current_Competition_Week} - Top Scores`)
         .setFooter(`via. /weekly ${Current_Competition_Week}`)
         .setTimestamp(now)
-        .setURL(
-          "https://docs.google.com/spreadsheets/d/1IJ_O4tFrucDzNM26DpbeGDIC6zuyCXXe4RLxCnYlYoQ/edit#gid=0"
-        )
+        .setURL("https://minecraft.fandom.com/wiki/Shovel")
         .setThumbnail(`https://mc-heads.net/avatar/${firstPlaceIGN}/100`)
         .setColor("#ffffff");
       reply(interaction, client, embed);
