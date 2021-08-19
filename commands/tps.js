@@ -6,13 +6,7 @@ var key = process.env.API_KEY;
 module.exports.run = async (interaction, client) => {
   const guild = client.guilds.cache.get(interaction.guild_id);
   let embed = new Discord.MessageEmbed();
-  if (!isRole(interaction.member, guild, "Staff")) {
-    reply(
-      interaction,
-      client,
-      "Sorry, this command is currently reserved for Staff."
-    );
-  }
+  
   var req = unirest("POST", `${ServerTap_API}/v1/server/exec`)
     .headers({
       key: `${key}`,
