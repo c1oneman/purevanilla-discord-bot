@@ -5,7 +5,7 @@ var key = process.env.API_KEY;
 module.exports.run = async (interaction, client) => {
   let embed = new Discord.MessageEmbed();
 
-  let Current_Competition_Week = "6";
+  let Current_Competition_Week = "7";
   let Current_Competition = "";
   const { options } = interaction.data;
   if (options != undefined) {
