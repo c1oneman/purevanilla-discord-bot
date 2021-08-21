@@ -84,7 +84,7 @@ module.exports.run = async (interaction, client) => {
         .setDescription(`Week ${Current_Competition_Week} - Top Scores`)
         .setFooter(`via. /weekly ${Current_Competition_Week}`)
         .setTimestamp(now)
-        .setURL("https://minecraft.fandom.com/wiki/Shovel")
+        .setURL("https://www.almostcl.one/KFWpmh")
         .setColor("#ffffff");
 
       if (firstPlaceIGN !== "undefined") {
