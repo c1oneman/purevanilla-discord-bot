@@ -5,12 +5,13 @@ module.exports = class extends SlashCommand {
   constructor(creator) {
     super(creator, {
       name: "play",
-      description: "Plays a song from youtube",
+      description: "Plays a song from youtube.",
       options: [
         {
           name: "query",
           type: CommandOptionType.STRING,
-          description: "The song you want to play",
+          description:
+            "The song you want to play (search or youtube link or spotify playlist/song",
           required: true,
         },
       ],
@@ -58,7 +59,7 @@ module.exports = class extends SlashCommand {
     }
 
     await ctx.sendFollowUp({
-      content: `⏱ | Loading your ${
+      content: `⏱ | Added your ${
         searchResult.playlist ? "playlist" : "track"
       }...`,
     });

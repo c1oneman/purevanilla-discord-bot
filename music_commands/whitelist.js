@@ -35,11 +35,11 @@ module.exports = class extends SlashCommand {
   }
 
   async run(ctx) {
-    console.log("else");
     const { client } = require("..");
     const ign = ctx.options.ign;
     const hasMemberAttached = ctx.options.discord ? true : false;
     const hasIGNAttached = ctx.options.ign ? true : false;
+    console.log(`/whitelist ${ign} ${ctx.options.discord}`);
     const color = 0x00ff00;
     await ctx.defer();
     let fields = [
@@ -83,7 +83,6 @@ module.exports = class extends SlashCommand {
             value: `:negative_squared_cross_mark: Err: Already Whitelisted`,
           });
         } else {
-          console.log("else");
           fields.push({
             name: "Survival Server",
             value: `:white_check_mark: Whitelisted`,
@@ -118,7 +117,6 @@ module.exports = class extends SlashCommand {
             value: `:negative_squared_cross_mark: Err: Already Whitelisted`,
           });
         } else {
-          console.log("else");
           fields.push({
             name: "Creative Server",
             value: `:white_check_mark: Whitelisted`,

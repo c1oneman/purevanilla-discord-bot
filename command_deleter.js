@@ -1,8 +1,7 @@
 const DiscordJS = require("discord.js");
 require("dotenv").config();
 
-const guildId = "732327346627149895";
-const client = new DiscordJS.Client();
+const client = new DiscordJS.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 const getApp = (guildId) => {
   const app = client.api.applications(client.user.id);
   if (guildId) {
@@ -12,8 +11,8 @@ const getApp = (guildId) => {
 };
 client.on("ready", async () => {
   // List commands
-  const commands = await client.api.applications.commands.get();
-  console.log(commands);
+  // const commands = await client.api.applications.commands.get();
+  // console.log(commands);
 
   // delete all commands
   //client.api
@@ -28,5 +27,5 @@ client.on("ready", async () => {
   //     .commands("command-id (interaction.data.id)")
   //     .delete();
 });
-
-client.login(process.env.TOKEN);
+console.log(process.env.DISCORD_CLIENT_TOKEN);
+client.login(process.env.DISCORD_CLIENT_TOKEN);

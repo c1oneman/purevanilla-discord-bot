@@ -4,8 +4,8 @@ const { QueueRepeatMode } = require("discord-player");
 module.exports = class extends SlashCommand {
   constructor(creator) {
     super(creator, {
-      name: "loop",
-      description: "Sets loop mode",
+      name: "autoplay",
+      description: "Toggle autoplay mode",
       options: [
         {
           name: "mode",
@@ -18,17 +18,12 @@ module.exports = class extends SlashCommand {
               value: QueueRepeatMode.OFF,
             },
             {
-              name: "Track",
-              value: QueueRepeatMode.TRACK,
-            },
-            {
-              name: "Queue",
-              value: QueueRepeatMode.QUEUE,
+              name: "On",
+              value: QueueRepeatMode.AUTOPLAY,
             },
           ],
         },
       ],
-
       guildIDs: process.env.DISCORD_GUILD_ID
         ? [process.env.DISCORD_GUILD_ID]
         : undefined,
@@ -47,14 +42,14 @@ module.exports = class extends SlashCommand {
     const loopMode = ctx.options.mode;
     const success = queue.setRepeatMode(loopMode);
     const mode =
-      loopMode === QueueRepeatMode.TRACK
-        ? "🔂"
-        : loopMode === QueueRepeatMode.QUEUE
-        ? "🔁"
-        : "▶";
+      loopMode === QueueRepeatMode.OFF
+        ? "OFF"
+        : loopMode === QueueRepeatMode.AUTOPLAY
+        ? "ON"
+        : "(err)";
     return void ctx.sendFollowUp({
       content: success
-        ? `${mode} | Updated loop mode!`
+        ? `▶ | Updated loop to automix mode ${mode}!`
         : "❌ | Could not update loop mode!",
     });
   }
