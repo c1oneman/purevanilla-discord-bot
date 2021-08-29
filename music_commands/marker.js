@@ -183,7 +183,6 @@ module.exports = class extends SlashCommand {
         ],
       });
     }
-    const guild = await client.guilds.cache.get(ctx.guildID);
     console.log(guild);
     const guildMember = guild.members.cache.get(ctx.member);
     console.log(guildMember);
