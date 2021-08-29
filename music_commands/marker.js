@@ -170,11 +170,12 @@ module.exports = class extends SlashCommand {
     await ctx.defer();
     let fields = [];
     console.log("Check perms");
-    if (
-      (await isRole(ctx.user, guild, "hasMarked")) &&
-      (await !isRole(ctx.user, guild, "Staff"))
-    ) {
-      console.log("NO");
+    const staffRole = guild.roles.cache.find((roles) => roles.name === "Staff");
+    const markedRole = guild.roles.cache.find(
+      (roles) => roles.name === "hasMarked"
+    );
+    if (ctx.member.roles.find((r) => r === markedRole.id)) {
+      console.log("User already has hasMarked role!");
       return void ctx.sendFollowUp({
         embeds: [
           {
@@ -190,9 +191,8 @@ module.exports = class extends SlashCommand {
     const guildMember = guild.members.cache.get(ctx.user.id);
     const uuid = nanoid();
     const id = `${uuid}`;
-    let roleID = guild.roles.cache.find((role) => role.name === "hasMarked");
-    console.log(roleID);
-    await guildMember.roles.add(roleID).catch((e) => {
+
+    await guildMember.roles.add(markedRole).catch((e) => {
       console.log(e);
     });
     fields.push({
@@ -247,7 +247,3 @@ module.exports = class extends SlashCommand {
     });
   }
 };
-function isRole(member, guild, role) {
-  let roleID = guild.roles.cache.find((roles) => roles.name === role);
-  return member.roles.find((r) => r === roleID.id);
-}
