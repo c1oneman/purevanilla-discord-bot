@@ -26,9 +26,9 @@ module.exports = class extends SlashCommand {
         },
         {
           type: CommandOptionType.USER,
-          name: "user",
+          name: "discord",
           description: "Discord @ of member to whitelist.",
-          required: false,
+          required: true,
         },
       ],
     });
@@ -38,7 +38,7 @@ module.exports = class extends SlashCommand {
     console.log("else");
     const { client } = require("..");
     const ign = ctx.options.ign;
-    const hasMemberAttached = ctx.options.user ? true : false;
+    const hasMemberAttached = ctx.options.discord ? true : false;
     const hasIGNAttached = ctx.options.ign ? true : false;
     const color = 0x00ff00;
     await ctx.defer();
@@ -52,7 +52,7 @@ module.exports = class extends SlashCommand {
     if (hasMemberAttached) {
       const guild = await client.guilds.cache.get(ctx.guildID);
       console.log(guild);
-      const guildMember = guild.members.cache.get(ctx.options.user);
+      const guildMember = guild.members.cache.get(ctx.options.discord);
       console.log(guildMember);
       await guildMember.setNickname(ign).catch((e) => {
         console.log(e);
