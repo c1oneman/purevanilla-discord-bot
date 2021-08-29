@@ -198,7 +198,7 @@ module.exports = class extends SlashCommand {
     });
 
     await unirest
-      .post(`${ServerTap_API}/v1/server/whitelist`)
+      .post(`${ServerTap_API}/v1/server/exec`)
       .headers({
         key: `${key}`,
         "Content-Type": "application/x-www-form-urlencoded",
