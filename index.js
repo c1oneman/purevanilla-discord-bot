@@ -23,7 +23,7 @@ const creator = new SlashCreator({
 });
 
 client.on("ready", async () => {
-  const guildId = "732327346627149895";
+  const guildId = "700185866932584498";
 
   const commands = await getApp(guildId).commands.get();
   console.log(commands);
