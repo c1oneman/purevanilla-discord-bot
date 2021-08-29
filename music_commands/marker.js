@@ -143,7 +143,7 @@ module.exports = class extends SlashCommand {
         {
           name: "confirm",
           description:
-            "I adknowledge that I can not modify this marker, and I can not create another until the next marker reset.",
+            "I adknowledge that I can not modify this marker until the next marker reset.",
           type: 3,
           required: true,
           choices: [
