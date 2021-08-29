@@ -183,9 +183,9 @@ module.exports = class extends SlashCommand {
         ],
       });
     }
-    console.log(guild);
+
+    console.log(ctx);
     const guildMember = guild.members.cache.get(ctx.member);
-    console.log(guildMember);
 
     let roleID = guild.roles.cache.find((role) => role.name === "hasMarked");
     console.log(roleID);
