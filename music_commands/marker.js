@@ -201,15 +201,17 @@ module.exports = class extends SlashCommand {
     const guildMember = guild.members.cache.get(ctx.user.id);
     const uuid = nanoid();
     const id = `${uuid}`;
-
     await guildMember.roles.add(markedRole).catch((e) => {
       console.log(e);
     });
     fields.push({
-      name: "Check",
-      value: `:white_check_mark: Marker Added`,
+      name: "Marker ID",
+      value: `\`${id}\``,
     });
-
+    fields.push({
+      name: "Marker Label",
+      value: `\`${ctx.options.label}\``,
+    });
     await unirest
       .post(`${ServerTap_API}/v1/server/exec`)
       .headers({
