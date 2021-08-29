@@ -186,7 +186,8 @@ module.exports = class extends SlashCommand {
 
     console.log(ctx);
     const guildMember = guild.members.cache.get(ctx.user.id);
-
+    const uuid = nanoid();
+    const id = `${uuid}`;
     let roleID = guild.roles.cache.find((role) => role.name === "hasMarked");
     console.log(roleID);
     await guildMember.roles.add(roleID).catch((e) => {
@@ -204,7 +205,7 @@ module.exports = class extends SlashCommand {
         "Content-Type": "application/x-www-form-urlencoded",
       })
       .send(
-        `command=dmarker add id:${ctx.options.id} "${ctx.options.label}" world:${ctx.options.dimension} x:${ctx.options.x} y:0 z:${ctx.options.z} icon:${ctx.options.icon} set:1`
+        `command=dmarker add id:${id} "${ctx.options.label}" world:${ctx.options.dimension} x:${ctx.options.x} y:0 z:${ctx.options.z} icon:${ctx.options.icon} set:1`
       )
       .timeout(1000)
       .then(async (response) => {
