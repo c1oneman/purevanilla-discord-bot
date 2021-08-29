@@ -18,7 +18,7 @@ client.player = new Player(client);
 registerPlayerEvents(client.player);
 
 const creator = new SlashCreator({
-  applicationID: process.env.DISCORD_CLIENT_ID,
+  applicationID: "700185866932584498",
   token: process.env.DISCORD_CLIENT_TOKEN,
 });
 
