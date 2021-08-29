@@ -170,8 +170,8 @@ module.exports = class extends SlashCommand {
     await ctx.defer();
     let fields = [];
     if (
-      isRole(ctx.member, guild, "hasMarked") &&
-      !isRole(ctx.member, guild, "Staff")
+      isRole(ctx.user, guild, "hasMarked") &&
+      !isRole(ctx.user, guild, "Staff")
     ) {
       return void ctx.sendFollowUp({
         embeds: [
@@ -185,7 +185,7 @@ module.exports = class extends SlashCommand {
     }
 
     console.log(ctx);
-    const guildMember = guild.members.cache.get(ctx.member);
+    const guildMember = guild.members.cache.get(ctx.user.id);
 
     let roleID = guild.roles.cache.find((role) => role.name === "hasMarked");
     console.log(roleID);
