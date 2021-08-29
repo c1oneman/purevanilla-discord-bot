@@ -25,7 +25,6 @@ module.exports = class extends SlashCommand {
         key: `${key}`,
         "Content-Type": "application/x-www-form-urlencoded",
       })
-      .timeout(1000)
       .then(async (res) => {
         let response = res.body;
         let final = [];
