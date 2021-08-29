@@ -169,20 +169,22 @@ module.exports = class extends SlashCommand {
     const color = 0x00ff00;
     await ctx.defer();
     let fields = [];
-    // if (
-    //   isRole(ctx.user, guild, "hasMarked") &&
-    //   !isRole(ctx.user, guild, "Staff")
-    // ) {
-    //   return void ctx.sendFollowUp({
-    //     embeds: [
-    //       {
-    //         title: "Uh oh!",
-    //         description: `This command can only be run once.`,
-    //         color: 0xffcb00,
-    //       },
-    //     ],
-    //   });
-    // }
+    console.log("Check perms");
+    if (
+      (await isRole(ctx.user, guild, "hasMarked")) &&
+      (await !isRole(ctx.user, guild, "Staff"))
+    ) {
+      console.log("NO");
+      return void ctx.sendFollowUp({
+        embeds: [
+          {
+            title: "Uh oh!",
+            description: `This command can only be run once.`,
+            color: 0xffcb00,
+          },
+        ],
+      });
+    }
 
     console.log(ctx);
     const guildMember = guild.members.cache.get(ctx.user.id);
