@@ -33,8 +33,8 @@ client.on("ready", async () => {
   }, interval);
   console.log(`Logged in as ${client.user.tag}!`);
 
-  console.log("Generating docs...");
-  generateDocs(creator.commands);
+  // console.log("Generating docs...");
+  // generateDocs(creator.commands);
   // client.ws.on("INTERACTION_CREATE", async (interaction) => {
   //   const { name } = interaction.data;
 
