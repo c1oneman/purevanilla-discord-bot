@@ -1,27 +1,49 @@
-const DiscordJS = require("discord.js");
-require("dotenv").config();
-schedule = require("node-schedule");
-
+const dotenv = require("dotenv");
+const path = require("path");
 const fs = require("fs");
+const { SlashCreator, GatewayServer } = require("slash-create");
+const Discord = require("discord.js");
+const { Player } = require("discord-player");
+const { registerPlayerEvents } = require("./events");
+const { generateDocs } = require("./docs");
+const mcping = require("mc-ping");
+dotenv.config();
 var minutes = 1,
   interval = minutes * 60 * 1000;
-const guildId = "700185866932584498";
-const client = new DiscordJS.Client();
-client.commands = new DiscordJS.Collection();
+const client = new Discord.Client({
+  intents: ["GUILDS", "GUILD_VOICE_STATES"],
+});
 
-fs.readdir("./commands/", (err, files) => {
-  if (err) console.log(err);
-  let jsfile = files.filter((f) => f.split(".").pop() === "js");
-  if (jsfile.length <= 0) {
-    console.log("Couldn't find commands.");
-    return;
-  }
+client.player = new Player(client);
+registerPlayerEvents(client.player);
 
-  jsfile.forEach((f, i) => {
-    let props = require(`./commands/${f}`);
-    console.log(`${f} loaded!`);
-    client.commands.set(props.help.name, props);
-  });
+const creator = new SlashCreator({
+  applicationID: process.env.DISCORD_CLIENT_ID,
+  token: process.env.DISCORD_CLIENT_TOKEN,
+});
+
+client.on("ready", async () => {
+  const guildId = "732327346627149895";
+
+  const commands = await getApp(guildId).commands.get();
+  console.log(commands);
+  ping();
+  setInterval(function () {
+    ping();
+  }, interval);
+  console.log(`Logged in as ${client.user.tag}!`);
+
+  console.log("Generating docs...");
+  generateDocs(creator.commands);
+  // client.ws.on("INTERACTION_CREATE", async (interaction) => {
+  //   const { name } = interaction.data;
+
+  //   const command = name.toLowerCase();
+
+  //   let commandfile;
+  //   commandfile = client.commands.get(command);
+  //   await commandfile.run(interaction, client);
+  // });
 });
 const getApp = (guildId) => {
   const app = client.api.applications(client.user.id);
@@ -30,29 +52,18 @@ const getApp = (guildId) => {
   }
   return app;
 };
+creator
+  .withServer(
+    new GatewayServer((handler) => client.ws.on("INTERACTION_CREATE", handler))
+  )
+  .registerCommandsIn(path.join(__dirname, "music_commands"));
 
-client.on("ready", async () => {
-  ping();
-  setInterval(function () {
-    ping();
-  }, interval);
-  console.log("online");
+if (process.env.DISCORD_GUILD_ID)
+  creator.syncCommandsIn(process.env.DISCORD_GUILD_ID);
+else creator.syncCommands();
 
-  const commands = await getApp(guildId).commands.get();
-  console.log(commands);
+client.login(process.env.DISCORD_CLIENT_TOKEN);
 
-  // await getApp(guildId).commands('817740792533090314').delete()
-
-  client.ws.on("INTERACTION_CREATE", async (interaction) => {
-    const { name } = interaction.data;
-
-    const command = name.toLowerCase();
-
-    let commandfile;
-    commandfile = client.commands.get(command);
-    await commandfile.run(interaction, client);
-  });
-});
 function ping() {
   mcping(`play.purevanilla.net`, 25565, function (err, res) {
     if (err) {
@@ -65,26 +76,6 @@ function ping() {
     }
   });
 }
-function randomImage() {
-  var unirest = require("unirest");
 
-  var req = unirest("GET", `https://api.imgur.com/3/album/MwsesR2`);
-
-  req.headers({
-    accept: "application/json",
-    authorization: "Client-ID 4cde16da264b293",
-  });
-  req.end(function (res) {
-    if (!res.body.error) {
-      if (res.body.data.images) {
-        var imagesObject = res.body.data.images;
-        var randomObject =
-          imagesObject[Math.floor(Math.random() * imagesObject.length)];
-        bot.channels.cache.get(general).send(randomObject.link);
-      }
-    } else {
-      console.log(res.body.error);
-    }
-  });
-}
-client.login(process.env.TOKEN);
+module.exports.client = client;
+module.exports.creator = creator;
