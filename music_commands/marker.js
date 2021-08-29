@@ -148,7 +148,7 @@ module.exports = class extends SlashCommand {
           required: true,
           choices: [
             {
-              name: "Make that sh**!",
+              name: "Create marker!",
               value: "true",
             },
             {
