@@ -5,7 +5,7 @@ const { SlashCreator, GatewayServer } = require("slash-create");
 const Discord = require("discord.js");
 const { Player } = require("discord-player");
 const { registerPlayerEvents } = require("./events");
-const { generateDocs } = require("./docs");
+// const { generateDocs } = require("./docs");
 const mcping = require("mc-ping");
 dotenv.config();
 var minutes = 1,
