@@ -5,7 +5,7 @@ const { SlashCreator, GatewayServer } = require("slash-create");
 const Discord = require("discord.js");
 const { Player } = require("discord-player");
 const { registerPlayerEvents } = require("./events");
-const { generateDocs } = require("./docs");
+//const { generateDocs } = require("./docs");
 const mcping = require("mc-ping");
 dotenv.config();
 var minutes = 1,
@@ -33,8 +33,8 @@ client.on("ready", async () => {
   }, interval);
   console.log(`Logged in as ${client.user.tag}!`);
 
-  console.log("Generating docs...");
-  generateDocs(creator.commands);
+  // console.log("Generating docs...");
+  // generateDocs(creator.commands);
   // client.ws.on("INTERACTION_CREATE", async (interaction) => {
   //   const { name } = interaction.data;
 
