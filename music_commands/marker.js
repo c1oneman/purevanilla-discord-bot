@@ -166,7 +166,7 @@ module.exports = class extends SlashCommand {
     const { client } = require("..");
     const guild = await client.guilds.cache.get(ctx.guildID);
     console.log(`/marker ${ctx.options}`);
-    const color = 0x00ff00;
+    const color = 0x42f57b;
     await ctx.defer();
     let fields = [];
     console.log("Check perms");
