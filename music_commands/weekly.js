@@ -23,7 +23,7 @@ module.exports = class extends SlashCommand {
   }
 
   async run(ctx) {
-    const { client } = require("..");
+    //const { client } = require("..");
     const week = "8";
     const week_id = ctx.options.week
       ? `week_${ctx.options.week}`

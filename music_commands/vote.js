@@ -13,7 +13,7 @@ module.exports = class extends SlashCommand {
   }
 
   async run(ctx) {
-    const { client } = require("..");
+    //const { client } = require("..");
 
     await ctx.defer();
 
