@@ -174,13 +174,23 @@ module.exports = class extends SlashCommand {
     const markedRole = guild.roles.cache.find(
       (roles) => roles.name === "hasMarked"
     );
-    if (ctx.member.roles.find((r) => r === markedRole.id)) {
-      console.log("User already has hasMarked role!");
+    if (
+      ctx.member.roles.find((r) => r === markedRole.id) &&
+      !ctx.member.roles.find((r) => r === staffRole.id)
+    ) {
+      console.log("User already has hasMarked role and is not staff!");
       return void ctx.sendFollowUp({
         embeds: [
           {
             title: "Uh oh!",
             description: `This command can only be run once.`,
+            fields: [
+              {
+                name: "How to fix this?",
+                value:
+                  "Please contact staff to reset an existing marker under your name.",
+              },
+            ],
             color: 0xffcb00,
           },
         ],
@@ -212,6 +222,43 @@ module.exports = class extends SlashCommand {
       .timeout(1000)
       .then(async (response) => {
         console.log(response.body);
+        if (response.body.toLowerCase().includes("error")) {
+          return void ctx.sendFollowUp({
+            embeds: [
+              {
+                title: "Uh oh!",
+                description: `There was an error processing this request.`,
+                fields: [
+                  {
+                    name: "How to fix this?",
+                    value: "Please try creating the marker again.",
+                  },
+                ],
+                color: 0xffcb00,
+              },
+            ],
+          });
+        } else {
+          return void ctx.sendFollowUp({
+            embeds: [
+              {
+                title: "Marker Created",
+                description: `Click the link to view it on the dynmap!`,
+                fields: fields,
+                color: color,
+                url: `https://map.purevanilla.net?worldname=${
+                  ctx.options.dimension
+                }&mapname=surface&zoom=6&x=${ctx.options.x + 100}&y=64&z=${
+                  ctx.options.z + 100
+                }`,
+                author: {
+                  name: `Pure Vanilla Dynmap`,
+                  icon_url: "https://i.imgur.com/y4gEvak.png",
+                },
+              },
+            ],
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -225,25 +272,5 @@ module.exports = class extends SlashCommand {
           ],
         });
       });
-
-    return void ctx.sendFollowUp({
-      embeds: [
-        {
-          title: "Marker Created",
-          description: `Click the link to view it on the dynmap!`,
-          fields: fields,
-          color: color,
-          url: `https://map.purevanilla.net?worldname=${
-            ctx.options.dimension
-          }&mapname=surface&zoom=6&x=${ctx.options.x + 100}&y=64&z=${
-            ctx.options.z + 100
-          }`,
-          author: {
-            name: `Pure Vanilla Dynmap`,
-            icon_url: "https://i.imgur.com/y4gEvak.png",
-          },
-        },
-      ],
-    });
   }
 };
