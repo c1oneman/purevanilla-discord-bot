@@ -31,7 +31,7 @@ module.exports = class extends SlashCommand {
     const color = 0x42f57b;
     await ctx.defer();
     let fields = [];
-    console.log("Check perms");
+    console.log("Checking perms");
     const staffRole = guild.roles.cache.find((roles) => roles.name === "Staff");
     if (!ctx.member.roles.find((r) => r === staffRole.id)) {
       console.log("User is not staff!");
@@ -52,13 +52,6 @@ module.exports = class extends SlashCommand {
         ],
       });
     }
-
-    console.log(ctx);
-    const guildMember = guild.members.cache.get(ctx.user.id);
-
-    await guildMember.roles.add(markedRole).catch((e) => {
-      console.log(e);
-    });
     fields.push({
       name: "Marker ID",
       value: `\`${ctx.options.id}\``,
