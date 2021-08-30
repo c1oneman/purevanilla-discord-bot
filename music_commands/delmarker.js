@@ -39,13 +39,7 @@ module.exports = class extends SlashCommand {
     let fields = [];
     console.log("Checking perms");
     const staffRole = guild.roles.cache.find((roles) => roles.name === "Staff");
-    const guildMember = guild.members.cache.get(ctx.options.user);
-    const hasMarkedRole = guild.roles.cache.find(
-      (roles) => roles.name === "hasMarked"
-    );
-    guildMember.roles.remove(hasMarkedRole).catch((e) => {
-      console.log(e);
-    });
+
     if (!ctx.member.roles.find((r) => r === staffRole.id)) {
       console.log("User is not staff!");
       return void ctx.sendFollowUp({
@@ -68,6 +62,13 @@ module.exports = class extends SlashCommand {
     fields.push({
       name: "Marker ID",
       value: `\`${ctx.options.id}\``,
+    });
+    const guildMember = guild.members.cache.get(ctx.options.user);
+    const hasMarkedRole = guild.roles.cache.find(
+      (roles) => roles.name === "hasMarked"
+    );
+    guildMember.roles.remove(hasMarkedRole).catch((e) => {
+      console.log(e);
     });
     await unirest
       .post(`${ServerTap_API}/v1/server/exec`)
