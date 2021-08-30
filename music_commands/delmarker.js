@@ -20,6 +20,12 @@ module.exports = class extends SlashCommand {
           description: "ID of marker on map to delete.",
           required: true,
         },
+        {
+          type: CommandOptionType.USER,
+          name: "user",
+          description: "USER to remove hasMarked role of.",
+          required: false,
+        },
       ],
     });
   }
@@ -33,6 +39,15 @@ module.exports = class extends SlashCommand {
     let fields = [];
     console.log("Checking perms");
     const staffRole = guild.roles.cache.find((roles) => roles.name === "Staff");
+    const guildMember = guild.members.cache.get(ctx.options.user);
+
+    let hasMarkedRole = guild.roles.cache.find(
+      (role) => role.name === "hasMarked"
+    );
+    console.log(roleID);
+    await guildMember.roles.remove(hasMarkedRole).catch((e) => {
+      console.log(e);
+    });
     if (!ctx.member.roles.find((r) => r === staffRole.id)) {
       console.log("User is not staff!");
       return void ctx.sendFollowUp({
