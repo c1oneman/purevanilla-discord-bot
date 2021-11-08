@@ -20,22 +20,13 @@ module.exports = class extends SlashCommand {
     return void ctx.sendFollowUp({
       embeds: [
         {
-          title: "Pure Vanilla Vote Links",
-          description: `You may vote up to 1 time per day!`,
+          title: "Pure Vanilla Vote",
+          description: `Please visit the following URL to vote for Pure Vanilla!`,
           fields: [
             {
-              name: "MCSL",
-              value: "https://minecraft-server-list.com/server/457207/vote/",
-            },
-            {
-              name: "PMC",
-              value:
-                "https://www.planetminecraft.com/server/purevanilla-4554187/vote/",
-            },
-            {
-              name: "MMP",
-              value: "https://minecraft-mp.com/server/252486/vote/",
-            },
+              name: "purevanilla.net/vote",
+              value: "https://purevanilla.net/vote",
+            }
           ],
           color: 0xffcb00,
         },
