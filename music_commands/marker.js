@@ -231,13 +231,13 @@ module.exports = class extends SlashCommand {
       name: "Marker Label",
       value: `\`${ctx.options.label}\``,
     });
-    await setRoleMarked(guildMember, markedRole).then((result)=> {
+    await setRoleMarked(guildMember, markedRole).then(async (result) => {
       if (result.error) {
         console.log('err role set')
       }
       else {
         console.log('set role success')
-        await createMarker(ctx).then((response) => {
+        await createMarker(ctx).then(async (response) => {
           console.log('create marker success')
           await createZone(ctx)
         })
