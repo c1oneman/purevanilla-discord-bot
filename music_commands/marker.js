@@ -174,8 +174,9 @@ module.exports = class extends SlashCommand {
     const markedRole = guild.roles.cache.find(
       (roles) => roles.name === "hasMarked"
     );
+    //ctx.member.roles.find((r) => r === markedRole.id)
     if (
-      ctx.member.roles.find((r) => r === markedRole.id) &&
+      true &&
       !ctx.member.roles.find((r) => r === staffRole.id)
     ) {
       console.log("User already has hasMarked role and is not staff!");
