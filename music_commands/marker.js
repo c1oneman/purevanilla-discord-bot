@@ -236,8 +236,10 @@ module.exports = class extends SlashCommand {
         console.log('err role set')
       }
       else {
-        createMarker(ctx).then(()=> {
-          createZone(ctx)
+        console.log('set role success')
+        await createMarker(ctx).then((response) => {
+          console.log('create marker success')
+          await createZone(ctx)
         })
       }
     })
