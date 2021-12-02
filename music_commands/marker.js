@@ -184,12 +184,12 @@ module.exports = class extends SlashCommand {
         embeds: [
           {
             title: "Uh oh!",
-            description: `This command can only be run once.`,
+            description: `This command is currently disabled.`,
             fields: [
               {
                 name: "How to fix this?",
                 value:
-                  "Please contact staff to reset an existing marker under your name.",
+                  "Please wait until markers are allowed.",
               },
             ],
             color: 0xffcb00,
