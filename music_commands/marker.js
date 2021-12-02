@@ -202,10 +202,6 @@ module.exports = class extends SlashCommand {
     const guildMember = guild.members.cache.get(ctx.user.id);
     const uuid = nanoid();
     const id = `${uuid}`;
-
-    
-
-
     if(ctx.options.x < 500 && ctx.options.z < 500 && !ctx.member.roles.find((r) => r === staffRole.id)) {
       return void ctx.sendFollowUp({
         embeds: [
@@ -231,67 +227,7 @@ module.exports = class extends SlashCommand {
       name: "Marker Label",
       value: `\`${ctx.options.label}\``,
     });
-    await setRoleMarked(guildMember, markedRole).then(async (result) => {
-      if (result.error) {
-        console.log('err role set')
-      }
-      else {
-        console.log('set role success')
-        await createMarker(ctx).then(async (response) => {
-          console.log('create marker success')
-          await createZone(ctx)
-        })
-      }
-    })
-  }
-};
-
-const setRoleMarked = async (guildMember, markedRole) => {
-  await guildMember.roles.add(markedRole)
-  .then(() => {
-    return {
-      error: false
-    }
-  })
-  .catch((e) => {
-    console.log(e);
-    return {
-      error: true
-    }
-  });
-}
-
-const createZone = async () => {
-  await unirest
-      .post(`${ServerTap_API}/v1/server/exec`)
-      .headers({
-        key: `${key}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      })
-      .send(
-        `command=dmarker addcircle id:${id} "${ctx.options.label}" world:${ctx.options.dimension} x:${ctx.options.x} y:0 z:${ctx.options.z} icon:${ctx.options.icon} set:2`
-      )
-      .timeout(1000)
-      .then(async (response) => {
-        if (response.body.toLowerCase().includes("error")) {
-          return {
-            error: true
-          }
-        } else {
-          return {
-            error: false
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        return {
-          error: true
-        }
-      });
-}
-const createMarker = async (ctx) => {
-  await unirest
+    await unirest
       .post(`${ServerTap_API}/v1/server/exec`)
       .headers({
         key: `${key}`,
@@ -320,6 +256,9 @@ const createMarker = async (ctx) => {
             ],
           });
         } else {
+          await guildMember.roles.add(markedRole).catch((e) => {
+            console.log(e);
+          });
           return void ctx.sendFollowUp({
             embeds: [
               {
@@ -353,4 +292,5 @@ const createMarker = async (ctx) => {
           ],
         });
       });
-}
+  }
+};
