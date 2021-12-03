@@ -176,7 +176,7 @@ module.exports = class extends SlashCommand {
     );
     //ctx.member.roles.find((r) => r === markedRole.id)
     if (
-      true &&
+      ctx.member.roles.find((r) => r === markedRole.id) &&
       !ctx.member.roles.find((r) => r === staffRole.id)
     ) {
       console.log("User already has hasMarked role and is not staff!");
@@ -184,12 +184,12 @@ module.exports = class extends SlashCommand {
         embeds: [
           {
             title: "Uh oh!",
-            description: `This command is currently disabled.`,
+            description: `You have already created a marker.`,
             fields: [
               {
                 name: "How to fix this?",
                 value:
-                  "Please wait until markers are allowed.",
+                  "Contact staff to remove your old marker.",
               },
             ],
             color: 0xffcb00,
