@@ -202,23 +202,7 @@ module.exports = class extends SlashCommand {
     const guildMember = guild.members.cache.get(ctx.user.id);
     const uuid = nanoid();
     const id = `${uuid}`;
-    if(ctx.options.x < 500 && ctx.options.z < 500 && !ctx.member.roles.find((r) => r === staffRole.id)) {
-      return void ctx.sendFollowUp({
-        embeds: [
-          {
-            title: "Uh oh!",
-            description: `There was an error processing this request.`,
-            fields: [
-              {
-                name: "How to fix this?",
-                value: "This marker looks to be within spawn, try placing it further out.",
-              },
-            ],
-            color: 0xffcb00,
-          },
-        ],
-      });
-    }
+    
     fields.push({
       name: "Marker ID",
       value: `\`${id}\``,
