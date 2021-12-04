@@ -63,13 +63,16 @@ module.exports = class extends SlashCommand {
       name: "Marker ID",
       value: `\`${ctx.options.id}\``,
     });
-    const guildMember = guild.members.cache.get(ctx.options.user);
-    const hasMarkedRole = guild.roles.cache.find(
-      (roles) => roles.name === "hasMarked"
-    );
-    guildMember.roles.remove(hasMarkedRole).catch((e) => {
-      console.log(e);
-    });
+    if(ctx.options.user) {
+      const guildMember = guild.members.cache.get(ctx.options.user);
+      const hasMarkedRole = guild.roles.cache.find(
+        (roles) => roles.name === "hasMarked"
+      );
+      guildMember.roles.remove(hasMarkedRole).catch((e) => {
+        console.log(e);
+      });
+    }
+    
     await unirest
       .post(`${ServerTap_API}/v1/server/exec`)
       .headers({
