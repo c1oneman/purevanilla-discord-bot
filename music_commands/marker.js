@@ -197,7 +197,25 @@ module.exports = class extends SlashCommand {
         ],
       });
     }
-
+    if (ctx.options.label.indexOf('/') > -1 || ctx.options.label.indexOf("'") > -1) {
+      console.log("Contains illegal character!");
+      return void ctx.sendFollowUp({
+        embeds: [
+          {
+            title: "Uh oh!",
+            description: `This marker contains an illegal character.`,
+            fields: [
+              {
+                name: "How to fix this?",
+                value:
+                  "Remove the single quote or / character.",
+              },
+            ],
+            color: 0xffcb00,
+          },
+        ],
+      });
+    }
     console.log(ctx);
     const guildMember = guild.members.cache.get(ctx.user.id);
     const uuid = nanoid();
