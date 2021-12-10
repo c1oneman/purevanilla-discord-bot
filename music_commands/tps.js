@@ -42,6 +42,16 @@ module.exports = class extends SlashCommand {
           case "20.0":
             color = 0x44eb63;
             break;
+          case "19.9":
+            color = 0x44eb63;
+          case "19.8":
+            color = 0x44eb63;
+          case "19.7":
+            color = 0x44eb63;
+          case "19.6":
+            color = 0x44eb63;
+          case "19.5":
+            color = 0x44eb63;
           default:
             color = 0xe8901c;
         }
