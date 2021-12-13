@@ -36,22 +36,12 @@ module.exports = class extends SlashCommand {
         const titles = ["5 seconds","1 minute", "5 minutes", "15 minutes"];
         let fields = [];
         let parse = response.body
-          .replace("TPS from last 5s, 1m, 5m, 15m: ", " ")
+          .replace("TPS from last 1m, 5m, 15m: ", " ")
           .split(", ");
-        switch (parse[2]) {
+        switch (parse[1]) {
           case "20.0":
             color = 0x44eb63;
-            break;
-          case "19.9":
-            color = 0x44eb63;
-          case "19.8":
-            color = 0x44eb63;
-          case "19.7":
-            color = 0x44eb63;
-          case "19.6":
-            color = 0x44eb63;
-          case "19.5":
-            color = 0x44eb63;
+            break;         
           default:
             color = 0xe8901c;
         }
