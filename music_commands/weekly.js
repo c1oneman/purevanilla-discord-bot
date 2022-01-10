@@ -24,7 +24,7 @@ module.exports = class extends SlashCommand {
 
   async run(ctx) {
     //const { client } = require("..");
-    const week = "5";
+    const week = "" + weeksBetween();
     const week_id = ctx.options.week
       ? `week_${ctx.options.week}`
       : `week_${week}`;
@@ -119,7 +119,11 @@ module.exports = class extends SlashCommand {
       });
   }
 };
-
+function weeksBetween() {
+var d1 = new Date();
+var d2 = new Date(2021,11,4);
+return Math.round(((d1 - d2) / (7 * 24 * 60 * 60 * 1000))+1);
+}
 function compare(a, b) {
   if (a.value < b.value) {
     return 1;
