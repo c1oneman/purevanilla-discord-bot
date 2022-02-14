@@ -123,9 +123,9 @@ module.exports = class extends SlashCommand {
 };
 function weeksBetween() {
 var d1 = new Date();
-var d2 = new Date(2021,11,12);
+var d2 = new Date(2021,02,12);
 d2.setHours(13);
-return Math.round(((d1 - d2) / (7 * 24 * 60 * 60 * 1000))+9);
+return Math.round(((d1 - d2) / (7 * 24 * 60 * 60 * 1000)));
 }
 function compare(a, b) {
   if (a.value < b.value) {
