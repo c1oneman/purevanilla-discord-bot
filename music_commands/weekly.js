@@ -25,14 +25,14 @@ module.exports = class extends SlashCommand {
   async run(ctx) {
     //const { client } = require("..");
     const week = "" + weeksBetween();
-    const week_id = ctx.options.week
+    let week_id = ctx.options.week
       ? `week_${ctx.options.week}`
       : `week_${week}`;
     if(week_id == 'week_9') {
       week_id = 'ts_AnimalsBred'
-    }
+    };
     console.log("/weekly");
-    console.log(week, weeksBetween());
+
     await ctx.defer();
     await unirest
       .get(`${ServerTap_API}/v1/scoreboard/${week_id}`)
