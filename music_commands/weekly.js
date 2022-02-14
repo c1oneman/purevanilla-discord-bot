@@ -29,7 +29,7 @@ module.exports = class extends SlashCommand {
       ? `week_${ctx.options.week}`
       : `week_${week}`;
     if(week_id == 'week_9') {
-      week_id == 'ts_AnimalsBred'
+      week_id = 'ts_AnimalsBred'
     }
     console.log("/weekly");
     console.log(week, weeksBetween());
