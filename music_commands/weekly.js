@@ -28,8 +28,11 @@ module.exports = class extends SlashCommand {
     const week_id = ctx.options.week
       ? `week_${ctx.options.week}`
       : `week_${week}`;
+    if(week_id == 'week_9') {
+      week_id == 'ts_AnimalsBred'
+    }
     console.log("/weekly");
-    console.log(week);
+    console.log(week, weeksBetween());
     await ctx.defer();
     await unirest
       .get(`${ServerTap_API}/v1/scoreboard/${week_id}`)
@@ -88,7 +91,6 @@ module.exports = class extends SlashCommand {
             {
               title: title,
               description: `Weekly - Top Scores`,
-              url: "https://minecraft.fandom.com/wiki/Tick",
               author: {
                 name: "Pure Vanilla Weekly Competition",
                 icon_url: "https://i.imgur.com/y4gEvak.png",
