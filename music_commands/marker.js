@@ -172,7 +172,7 @@ module.exports = class extends SlashCommand {
     console.log("Check perms");
     const staffRole = guild.roles.cache.find((roles) => roles.name === "Staff");
     const markedRole = guild.roles.cache.find(
-      (roles) => roles.name === "hasMarked"
+      (roles) => roles.name === "hasMarker"
     );
     //ctx.member.roles.find((r) => r === markedRole.id)
     if (
