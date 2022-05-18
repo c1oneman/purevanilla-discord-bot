@@ -21,13 +21,7 @@ module.exports = class extends SlashCommand {
       embeds: [
         {
           title: "Pure Vanilla Vote",
-          description: `Please visit the following URL to vote for Pure Vanilla!`,
-          fields: [
-            {
-              name: "purevanilla.net/vote",
-              value: "https://purevanilla.net/vote",
-            }
-          ],
+          description: `Vote sites are now disconnected in anticipation of closure.`,
           color: 0xffcb00,
         },
       ],
