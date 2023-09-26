@@ -58,7 +58,7 @@ module.exports = class extends SlashCommand {
             {
               title: "Ticks Per Second",
               description: `Average TPS from last:`,
-              url: "https://minecraft.fandom.com/wiki/Tick",
+              url: "https://minecraft.wiki/w/Tick",
               author: {
                 name: "Pure Vanilla Status",
                 icon_url: "https://i.imgur.com/y4gEvak.png",
